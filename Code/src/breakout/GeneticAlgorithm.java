@@ -15,7 +15,7 @@ public class GeneticAlgorithm {
 		private BreakoutNeuralNetwork bestNeuralNetwork;
 		
 		public int totalGeracoes = 0;
-	
+
 		private static int k_tournament = 6;
 
 	    GeneticAlgorithm(){
@@ -59,13 +59,11 @@ public class GeneticAlgorithm {
 			for (int i = 0; i < NUM_GENERATIONS; i++) {
 				BreakoutNeuralNetwork[] newGeneration = new BreakoutNeuralNetwork[POPULATION_SIZE];
 				Arrays.sort(population);
-				System.out.println("#-#-#-#-#-#-#-#-#-#-#-#\nGeneration: " + i);
+				System.out.println("\nGen: " + i);
 				getBest(population[0]);
 				
 				printPopulation();
-
-				
-				
+					
 				for (int j = 2; j < POPULATION_SIZE ; j+=2) {
 					BreakoutNeuralNetwork parent1 = selectParent();
 					BreakoutNeuralNetwork parent2 = selectParent();
@@ -73,28 +71,21 @@ public class GeneticAlgorithm {
 					newGeneration[j] = children[0];
 					newGeneration[j + 1] = children[1];
 
-					mutate(newGeneration[j]);
-					mutate(newGeneration[j + 1]);
+					newGeneration[j] = mutate(newGeneration[j]);
+					newGeneration[j + 1]  = mutate(newGeneration[j + 1]);
 					
 				}
 				//getBest(population[0]);
 				newGeneration[0] = getBestCopy();
-				newGeneration[1] = getBestCopy();
+				newGeneration[1] = mutate(getBestCopy());
 				population = newGeneration;
-				
-				/*
-				for(int k = 0; k < POPULATION_SIZE; k+= POPULATION_SIZE * SELECTION_PERCENTAGE) {
-					for(int u = k; u < POPULATION_SIZE * SELECTION_PERCENTAGE; u++) {
-						
-					}
-				}
-				 */	
+		
 			}
 			return bestNeuralNetwork;
 		}
 	    
 	
-	    private void mutate(BreakoutNeuralNetwork individual) {
+	    private BreakoutNeuralNetwork mutate(BreakoutNeuralNetwork individual) {
 	        double[] genes = individual.getNeuralNetwork();
 	        for (int i = 0; i < genes.length; i++) {
 	            if (Math.random() < MUTATION_RATE) {
@@ -102,7 +93,8 @@ public class GeneticAlgorithm {
 	                genes[i] += (Math.random() * 2 - 1) * MUTATIOMAGNITUDE;
 	            }
 	        }
-	        individual.loadNeuralNetwork(genes);
+	        individual.initializeNetwork(genes);
+	        return individual;
 	    }
 
 

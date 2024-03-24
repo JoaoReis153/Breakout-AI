@@ -11,5 +11,8 @@ public class Main {
 		//BreakoutNeuralNetwork n = new BreakoutNeuralNetwork();
 		Breakout a = new Breakout(nn, Commons.SEED);
 		
+		
+		//ConstantsGetter cgetter = new ConstantsGetter(100);
+		//System.out.println("getter.getValue());
 	}
 }

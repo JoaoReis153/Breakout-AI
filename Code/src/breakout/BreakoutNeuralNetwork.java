@@ -6,7 +6,8 @@ import utils.Commons;
 import utils.GameController;
 
 public class BreakoutNeuralNetwork implements GameController, Comparable<BreakoutNeuralNetwork> {
-    private int inputDim = Commons.BREAKOUT_STATE_SIZE;
+
+	private int inputDim = Commons.BREAKOUT_STATE_SIZE;
     private int hiddenDim = Commons.BREAKOUT_HIDDEN_LAYERS;
     private int outputDim = Commons.BREAKOUT_NUM_ACTIONS;
     private double[][] hiddenWeights;
@@ -25,8 +26,6 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
         initializeParameters();
     }
     
-    
-
 	public BreakoutNeuralNetwork(double[] values) {
         int maxSize = (inputDim * hiddenDim + hiddenDim + outputDim * hiddenDim + outputDim) ;
         if(values.length == maxSize) {
@@ -37,7 +36,7 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
         }
     }
     
-    private void initializeNetwork(double[] values) {
+    public void initializeNetwork(double[] values) {
     	// Initialize network with specified set of values
     	// Implementation omitted for brevity
     	hiddenWeights = new double[inputDim][hiddenDim];
@@ -94,18 +93,15 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
 }
        
     public double[] forward(int[] values) {
+    	double[] inputValues = normalize(values);
+
     	double[] hiddenLayer = new double[hiddenDim];
-		double[] inputValues = normalize(values);
 	
     	for(int i = 0; i < hiddenDim; i++) {
     		for(int j = 0; j < inputDim; j++) {
-    			//System.out.println("Weights: " + hiddenWeights[j][i]);
     			hiddenLayer[i] += hiddenWeights[j][i] * inputValues[j] ;
     		}
-    		//System.out.println("Hidden layer: " + hiddenLayer[i]);
-    		//System.out.println("Hidden biases: " + hiddenBiases[i]);
     		hiddenLayer[i] = sigmoid(hiddenLayer[i] + hiddenBiases[i]);
-    		//System.out.println("After calculus hidden layer: " + hiddenLayer[i]);
     	}
     	
     	double[] output = new double[Commons.BREAKOUT_NUM_ACTIONS];
@@ -124,7 +120,6 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
     @Override
 	public int nextMove(int[] inputValues) {
 		double[] output = forward(inputValues);
-		//System.out.println("Output: " + output[0] + " : " + output[1]);
 		if(output[0] > output[1]) 
 			return 1;
 		return 2;
@@ -133,6 +128,7 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
     private double tanh(double x) {
         return (Math.exp(x) - Math.exp(-x)) / (Math.exp(x) + Math.exp(-x));
     }
+
     private double sigmoid(double x) {
     	return 1/(1+Math.exp(-x));
     }
@@ -140,15 +136,11 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
     private double[] normalize(int[] values) {
     	double[] result = new double[values.length];
     	/*
-    	double sum = 0; 
-    	for( int i = 0; i< values.length; i++) sum+= values[i];
-    	System.out.println("result_ " + sum);
-    	for(int i = 0; i < values.length; i++) {
-    		result[i] = values[i] / (double) sum;
-    		System.out.print(".." + result[i]);
-    	}
-    	*/
-    	
+    	double total = 0;
+    	for(double k : values) total += k;
+    	total/=values.length*NORMALIZER;
+    	for(int i = 0; i < result.length; i++) result[i] = values[i]/total;
+    	 */
     	
      	//0 and 1 are balls coordinates
     	result[0] = values[0] / (double) Commons.WIDTH;
@@ -201,41 +193,6 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
         return networkParams;
     }
   
-	public void loadNeuralNetwork(double[] values) {
-
-		if (values == null || values.length != (inputDim * hiddenDim + hiddenDim + hiddenDim * outputDim + outputDim)) {
-	        throw new IllegalArgumentException("Array inválido.");
-	    }
-	    
-	    int index = 0;
-	    
-	    // Unpack hidden layer weights
-	    for (int i = 0; i < inputDim; i++) {
-	        for (int j = 0; j < hiddenDim; j++) {
-	            hiddenWeights[i][j] = values[index++];
-	        }
-	    }
-	    
-	    // Unpack hidden layer biases
-	    for (int i = 0; i < hiddenDim; i++) {
-	        hiddenBiases[i] = values[index++];
-	    }
-	    
-	    // Unpack output layer weights
-	    for (int i = 0; i < hiddenDim; i++) {
-	        for (int j = 0; j < outputDim; j++) {
-	            outputWeights[i][j] = values[index++];
-	        }
-	    }
-	    
-	    // Unpack output layer bias
-	    for (int i = 0; i < outputDim; i++) {
-    	   outputBiases[i] = values[index++];
-	    }
-	    
-	 
-		
-	}
 	 
 	@Override
     public String toString() {
