@@ -13,6 +13,19 @@ public interface Commons {
 	public static final int PERIOD = 5;
     
 	public static final int BREAKOUT_STATE_SIZE = 7;
+	public static final int BREAKOUT_HIDDEN_LAYERS = 5;
 	public static final int BREAKOUT_NUM_ACTIONS = 2;
+	public static final int BREAKOUT_NETWORK_SIZE = BREAKOUT_STATE_SIZE * BREAKOUT_HIDDEN_LAYERS + BREAKOUT_HIDDEN_LAYERS + BREAKOUT_HIDDEN_LAYERS * BREAKOUT_NUM_ACTIONS + BREAKOUT_NUM_ACTIONS;
+
+	public static final int SEED = 10234;
 	
+	
+	//GA Breakoout
+	public static final int POPULATION_SIZE = 100;
+	public static final int NUM_GENERATIONS = 20 ;
+	public static final double MUTATION_RATE = .8;
+	public static final double MUTATIOMAGNITUDE = 10;
+	public static final double SELECTION_PERCENTAGE = 0.2;
+	public static final double INITIALDIVERSITY = 50;
+
 }
