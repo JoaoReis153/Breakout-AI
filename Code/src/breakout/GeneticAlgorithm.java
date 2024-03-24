@@ -63,7 +63,8 @@ public class GeneticAlgorithm {
 		
 				getBest(population[0]);
 				
-				printPopulation();
+				//printPopulation();
+				
 					
 				
 				for (int j = 2; j < POPULATION_SIZE ; j+=2) {
@@ -96,8 +97,12 @@ public class GeneticAlgorithm {
 	                genes[i] += (Math.random() * 2 - 1) * MUTATIOMAGNITUDE;
 	            }
 	        }
-	        individual.initializeNetwork(genes);
-	        return individual;
+	        BreakoutNeuralNetwork newIndividual = new BreakoutNeuralNetwork(genes);
+	        if (Commons.MUTATEGETELITE) {
+	        	return individual.getFitness() > newIndividual.getFitness() ? individual : newIndividual;
+	        } else {
+	        	return newIndividual;
+	        }
 	    }
 
 

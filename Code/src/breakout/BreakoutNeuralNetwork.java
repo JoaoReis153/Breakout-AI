@@ -14,20 +14,8 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
     private double[] hiddenBiases;
     private double[][] outputWeights;
     private double[] outputBiases;
-    
-    private double hiddenWeightsMultiplier = 1;
-    private double hiddenBiasesMultiplier = 1;
-    private double outputWeightsMultipler = 1;
-    private double outputBiasesMultiplier = 1;
-    
-    String a495513 = "40.42637114899373  54.38662016726826  -65.54569443922296  -77.89922026860047  76.70480478016853  54.31275794266294  -24.340731251763337  -40.73340717126329  -74.7071299184169  24.040420835512904  -25.471557387482953  48.97020068218293  -86.39980754501657  -0.7698370007884439  -65.67421077209463  74.16494802154074  56.59891891842428  86.77450516961682  -55.80533654654079  -14.922543985573245  -121.16151134317236  -4.464555490363866  55.81106745471452  -12.056073251675695  -20.695955417164317  35.82499038130346  -8.269990951690454  -26.988463739304656  74.93163095034853  59.095000474100885  -28.37363115628454  35.614276531095456  76.3954610661179  -56.40425384203146  28.10686941069542  42.041835854380224  54.97239546569717  64.21375398260494  1.3198731106818453  -41.71467951898755  14.045436432907989  81.53220096206582";
-    Ftn: 899999.0
-    hiddenWeights: 40.654475215593806  56.412269122888034  -71.21417612830409  -77.8798202641108  78.29864736561883  48.61886726709451  -29.38415767627398  -44.620690103442776  -64.9259664073339  28.590155566944393  -26.578332499414174  49.59966193532604  -87.03970826772785  -1.8481833275939072  -61.53208194525339  86.07746282762153  59.52836703617812  86.03868909414406  -49.83078573095407  -20.56995074089771  -120.43526906588176  0.15427582836178688  61.43332340022134  -2.3111299641548753  -19.673483024433317  40.807430978351974  -4.613804605583475  -27.025129864535625  
-    hiddenBiases: 77.63880719724048  60.35543743552111  -30.827959109099886  40.6040565357226  
-    outputWeights: 82.71515177786334  -56.8502245470399  23.6624573295517  47.15711985108417  60.281914465587775  60.63468942823425  -1.7804353485900752  -39.95187536981642  
-    outputBiases: 10.933833731228322  83.88922132797119  
-    
-    private double INITIALDIVERSITY = Commons.INITIALDIVERSITY;
+     
+    private double INITIALDIVERSITY = Commons.INITIALDIVERSITY;//1
    
     public BreakoutNeuralNetwork() {
         initializeParameters();
@@ -97,7 +85,7 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
 			for (int i = 0; i < outputDim; i++) {
 				outputBiases[i] = ((Math.random() * 2) - 1) * INITIALDIVERSITY;
 			}
-			initializeNetwork(stringToArray(a495513));
+			//initializeNetwork(stringToArray(a495513));
 }
        
     public double[] forward(int[] values) {
@@ -143,13 +131,13 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
   
     private double[] normalize(int[] values) {
     	double[] result = new double[values.length];
-    	/*
+    	
     	double total = 0;
     	for(double k : values) total += k;
-    	total/=values.length*NORMALIZER;
+    	total/=values.length;
     	for(int i = 0; i < result.length; i++) result[i] = values[i]/total;
-    	 */
     	
+    	/*
      	//0 and 1 are balls coordinates
     	result[0] = values[0] / (double) Commons.WIDTH;
     	result[1] = values[1] / (double) Commons.HEIGHT;
@@ -161,6 +149,7 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
     	//5 and 6 are the bricks coordinates
     	result[5] = values[5] / (double) Commons.WIDTH;
     	result[6] = values[6] / (double) Commons.HEIGHT;
+    	*/
     	return result;
     }
         
