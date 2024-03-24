@@ -12,6 +12,7 @@ public class GeneticAlgorithm {
 		private static double MUTATIOMAGNITUDE = Commons.MUTATIOMAGNITUDE;
 		private static double SELECTION_PERCENTAGE = Commons.SELECTION_PERCENTAGE;
 		private BreakoutNeuralNetwork[] population = new BreakoutNeuralNetwork[POPULATION_SIZE];
+		
 		private BreakoutNeuralNetwork bestNeuralNetwork;
 		
 		public int totalGeracoes = 0;
@@ -48,38 +49,40 @@ public class GeneticAlgorithm {
 	    }
 	    
 	    private void printPopulation() {
-	    	System.out.println("");
 	    	for(int i = 0; i <population.length; i++) 
 	    		System.out.print(population[i].getFitness() + "  ");
 	    	System.out.println("");
 	    }
-	   
+
 	    private BreakoutNeuralNetwork search() {
 	    	bestNeuralNetwork = population[0];
 			for (int i = 0; i < NUM_GENERATIONS; i++) {
 				BreakoutNeuralNetwork[] newGeneration = new BreakoutNeuralNetwork[POPULATION_SIZE];
 				Arrays.sort(population);
 				System.out.println("\nGen: " + i);
+		
 				getBest(population[0]);
 				
 				printPopulation();
 					
+				
 				for (int j = 2; j < POPULATION_SIZE ; j+=2) {
 					BreakoutNeuralNetwork parent1 = selectParent();
 					BreakoutNeuralNetwork parent2 = selectParent();
 					BreakoutNeuralNetwork[] children = crossover(parent1, parent2);
 					newGeneration[j] = children[0];
 					newGeneration[j + 1] = children[1];
-
+					
 					newGeneration[j] = mutate(newGeneration[j]);
 					newGeneration[j + 1]  = mutate(newGeneration[j + 1]);
+
 					
 				}
-				//getBest(population[0]);
+			
 				newGeneration[0] = getBestCopy();
 				newGeneration[1] = mutate(getBestCopy());
 				population = newGeneration;
-		
+
 			}
 			return bestNeuralNetwork;
 		}
