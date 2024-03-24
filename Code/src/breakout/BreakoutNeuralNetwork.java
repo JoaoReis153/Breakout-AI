@@ -136,7 +136,6 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
     	for(double k : values) total += k;
     	total/=values.length;
     	for(int i = 0; i < result.length; i++) result[i] = values[i]/total;
-    	
     	/*
      	//0 and 1 are balls coordinates
     	result[0] = values[0] / (double) Commons.WIDTH;

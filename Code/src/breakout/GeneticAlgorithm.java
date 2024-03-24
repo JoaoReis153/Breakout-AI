@@ -39,7 +39,8 @@ public class GeneticAlgorithm {
 	    private void getBest(BreakoutNeuralNetwork nn) {
     		if(nn.getFitness() > bestNeuralNetwork.getFitness()) {
     			bestNeuralNetwork = new BreakoutNeuralNetwork(nn.getNeuralNetwork());
-    			System.out.println("Best: " + bestNeuralNetwork.getFitness());
+    			System.out.println("Best: \n" + bestNeuralNetwork);
+    			System.out.println(".");
     		}
 	    }
 	    
@@ -59,7 +60,7 @@ public class GeneticAlgorithm {
 			for (int i = 0; i < NUM_GENERATIONS; i++) {
 				BreakoutNeuralNetwork[] newGeneration = new BreakoutNeuralNetwork[POPULATION_SIZE];
 				Arrays.sort(population);
-				System.out.println("\nGen: " + i);
+				System.out.println("Gen: " + i);
 		
 				getBest(population[0]);
 				
