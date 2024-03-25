@@ -64,7 +64,7 @@ public class GeneticAlgorithm {
 		
 				getBest(population[0]);
 				
-				printPopulation();
+				//printPopulation();
 				
 				int start = ((int) (POPULATION_SIZE * SELECTION_PERCENTAGE/2))*2;
 				// Ensure 'start' is within bounds and adjust if necessary
