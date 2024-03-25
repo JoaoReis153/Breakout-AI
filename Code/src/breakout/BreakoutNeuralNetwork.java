@@ -88,7 +88,7 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
 			for (int i = 0; i < outputDim; i++) {
 				outputBiases[i] = ((Math.random() * 2) - 1) * INITIALDIVERSITY;
 			}
-			initializeNetwork(stringToArray(a1799999));
+			//initializeNetwork(stringToArray(a1799999));
 }
        
     public double[] forward(int[] values) {

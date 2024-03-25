@@ -17,7 +17,7 @@ public interface Commons {
 	public static final int BREAKOUT_NUM_ACTIONS = 2;
 	public static final int BREAKOUT_NETWORK_SIZE = BREAKOUT_STATE_SIZE * BREAKOUT_HIDDEN_LAYERS + BREAKOUT_HIDDEN_LAYERS + BREAKOUT_HIDDEN_LAYERS * BREAKOUT_NUM_ACTIONS + BREAKOUT_NUM_ACTIONS;
 
-	public static final int SEED = 31114121;
+	public static final int SEED = 1;
 	
 	
 	//GA Breakoout
@@ -26,8 +26,8 @@ public interface Commons {
 	
 	public static final double INITIALDIVERSITY = 2;
 	public static final boolean MUTATEGETELITE = true;
-	public static final double MUTATION_RATE = .65;
-	public static final double MUTATIOMAGNITUDE = .7;
-	public static final double SELECTION_PERCENTAGE = 0.25;
+	public static final double MUTATION_RATE = .8;
+	public static final double MUTATIOMAGNITUDE = .8;
+	public static final double SELECTION_PERCENTAGE = 0.2;
 
 }

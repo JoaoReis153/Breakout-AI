@@ -13,7 +13,7 @@ public class GeneticAlgorithm {
 		private static double SELECTION_PERCENTAGE = Commons.SELECTION_PERCENTAGE;
 		private BreakoutNeuralNetwork[] population = new BreakoutNeuralNetwork[POPULATION_SIZE];
 		
-		private BreakoutNeuralNetwork bestNeuralNetwork;
+		private BreakoutNeuralNetwork champion;
 		
 		public int totalGeracoes = 0;
 
@@ -21,12 +21,12 @@ public class GeneticAlgorithm {
 
 	    GeneticAlgorithm(){
 	        generatePopulation();
-	        bestNeuralNetwork = search();
-	        System.out.println(bestNeuralNetwork);
+	        champion = search();
+	        System.out.println(champion);
 	    }
 	    
-	    public BreakoutNeuralNetwork getBestNeuralNetwork() {
-			return bestNeuralNetwork;
+	    public BreakoutNeuralNetwork getChampion() {
+			return champion;
 	    }
 
 
@@ -37,15 +37,15 @@ public class GeneticAlgorithm {
 	    }
 	    
 	    private void getBest(BreakoutNeuralNetwork nn) {
-    		if(nn.getFitness() > bestNeuralNetwork.getFitness()) {
-    			bestNeuralNetwork = new BreakoutNeuralNetwork(nn.getNeuralNetwork());
-    			System.out.println("Best: \n" + bestNeuralNetwork);
+    		if(nn.getFitness() > champion.getFitness()) {
+    			champion = new BreakoutNeuralNetwork(nn.getNeuralNetwork());
+    			System.out.println("Best: \n" + champion);
     			System.out.println(".");
     		}
 	    }
 	    
 	    private BreakoutNeuralNetwork getBestCopy() {
-	    	BreakoutNeuralNetwork bb = new BreakoutNeuralNetwork(bestNeuralNetwork.getNeuralNetwork());
+	    	BreakoutNeuralNetwork bb = new BreakoutNeuralNetwork(champion.getNeuralNetwork());
 	    	return bb;
 	    }
 	    
@@ -56,7 +56,7 @@ public class GeneticAlgorithm {
 	    }
 
 	    private BreakoutNeuralNetwork search() {
-	    	bestNeuralNetwork = population[0];
+	    	champion = population[0];
 			for (int i = 0; i < NUM_GENERATIONS; i++) {
 				BreakoutNeuralNetwork[] newGeneration = new BreakoutNeuralNetwork[POPULATION_SIZE];
 				Arrays.sort(population);
@@ -64,29 +64,32 @@ public class GeneticAlgorithm {
 		
 				getBest(population[0]);
 				
-				//printPopulation();
+				printPopulation();
 				
+				int start = ((int) (POPULATION_SIZE * SELECTION_PERCENTAGE/2))*2;
+				// Ensure 'start' is within bounds and adjust if necessary
+				start = Math.max(2, Math.min(start, POPULATION_SIZE - 2)); // Ensures we have space for at least one pair of children
+								
+				for (int j = 0; j < POPULATION_SIZE - 1; j += 2) {
 					
-				
-				for (int j = 2; j < POPULATION_SIZE ; j+=2) {
-					BreakoutNeuralNetwork parent1 = selectParent();
-					BreakoutNeuralNetwork parent2 = selectParent();
-					BreakoutNeuralNetwork[] children = crossover(parent1, parent2);
-					newGeneration[j] = children[0];
-					newGeneration[j + 1] = children[1];
-					
-					newGeneration[j] = mutate(newGeneration[j]);
-					newGeneration[j + 1]  = mutate(newGeneration[j + 1]);
-
+					if(j < start) {
+						newGeneration[j] = population[j];
+						newGeneration[j+1] = population[j+1];
+					} else {
+						BreakoutNeuralNetwork parent1 = selectParent();
+						BreakoutNeuralNetwork parent2 = selectParent();
+						BreakoutNeuralNetwork[] children = crossover(parent1, parent2);
+						
+						newGeneration[j] = mutate(children[0]);
+						newGeneration[j + 1]  = mutate(children[1]);
+					}
 					
 				}
-			
-				newGeneration[0] = getBestCopy();
-				newGeneration[1] = mutate(getBestCopy());
+				
 				population = newGeneration;
 
 			}
-			return bestNeuralNetwork;
+			return champion;
 		}
 	    
 	
