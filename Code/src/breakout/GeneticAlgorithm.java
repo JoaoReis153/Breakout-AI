@@ -65,6 +65,10 @@ public class GeneticAlgorithm {
 				getBest(population[0]);
 				
 				//printPopulation();
+				if(i % 10 == 0) {
+					BreakoutNeuralNetwork nn = getChampion();
+					Breakout a = new Breakout(nn, Commons.SEED);
+				}
 				
 				int start = ((int) (POPULATION_SIZE * SELECTION_PERCENTAGE/2))*2;
 				// Ensure 'start' is within bounds and adjust if necessary
