@@ -21,13 +21,13 @@ public interface Commons {
 	
 	
 	//GA Breakoout
-	public static final int POPULATION_SIZE = 1000;
-	public static final int NUM_GENERATIONS = 100;
+	public static final int POPULATION_SIZE = 500;
+	public static final int NUM_GENERATIONS = 250;
 	
 	public static final double INITIALDIVERSITY = 2;
 	public static final boolean MUTATEGETELITE = true;
-	public static final double MUTATION_RATE = .7;
-	public static final double MUTATIOMAGNITUDE = .6;
-	public static final double SELECTION_PERCENTAGE = 0.4;
+	public static final double MUTATION_RATE = .65;
+	public static final double MUTATIOMAGNITUDE = .7;
+	public static final double SELECTION_PERCENTAGE = 0.25;
 
 }
