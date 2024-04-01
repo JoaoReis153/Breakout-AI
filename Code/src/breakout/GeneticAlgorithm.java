@@ -17,6 +17,10 @@ public class GeneticAlgorithm {
 		
 		public int totalGeracoes = 0;
 
+		private int seed = Commons.SEED;
+		
+		public int interval = 0;
+		
 		private static int k_tournament = 6;
 
 	    GeneticAlgorithm(){
@@ -25,28 +29,34 @@ public class GeneticAlgorithm {
 	        System.out.println(champion);
 	    }
 	    
+	    GeneticAlgorithm(int seed){
+	    	this.seed = seed;
+	        generatePopulation();
+	        champion = search();
+	        System.out.println("Best: " + champion.getFitness());
+	    }
+	    
 	    public BreakoutNeuralNetwork getChampion() {
 			return champion;
 	    }
 
 
 	    private void generatePopulation() {
+			System.out.println("\n\n\n---\n+ Seed: " + seed + "\n-");
 	        for(int i = 0; i < POPULATION_SIZE; i++){
-	            population[i] = new BreakoutNeuralNetwork();;
+	        	population[i] = new BreakoutNeuralNetwork(seed);
 	        }
 	    }
 	    
-	    private void getBest(BreakoutNeuralNetwork nn) {
+	    private void getBest(BreakoutNeuralNetwork nn, int gen) {
     		if(nn.getFitness() > champion.getFitness()) {
-    			champion = new BreakoutNeuralNetwork(nn.getNeuralNetwork());
-    			System.out.println("Best: \n" + champion);
-    			System.out.println(".");
+    			interval = 0;
+    			champion = new BreakoutNeuralNetwork(nn.getNeuralNetwork(), seed);
+    			if(Commons.SHOWNEWBEST)
+    				System.out.println(champion);
+    		} else {
+    			interval++;
     		}
-	    }
-	    
-	    private BreakoutNeuralNetwork getBestCopy() {
-	    	BreakoutNeuralNetwork bb = new BreakoutNeuralNetwork(champion.getNeuralNetwork());
-	    	return bb;
 	    }
 	    
 	    private void printPopulation() {
@@ -60,20 +70,24 @@ public class GeneticAlgorithm {
 			for (int i = 0; i < NUM_GENERATIONS; i++) {
 				BreakoutNeuralNetwork[] newGeneration = new BreakoutNeuralNetwork[POPULATION_SIZE];
 				Arrays.sort(population);
-				System.out.println("Gen: " + i);
-		
-				getBest(population[0]);
 				
-				//printPopulation();
-				if(i % 10 == 0) {
-					BreakoutNeuralNetwork nn = getChampion();
-					Breakout a = new Breakout(nn, Commons.SEED);
+				if(Commons.SHOWGENERATION)
+					System.out.println("Gen: " + i);
+		
+				getBest(population[0], i);
+			
+				if(Commons.BREAKIFNOTHINGININTERVAL && interval == Commons.BREAKINTERVAL) {  
+					System.out.println("Gen: " + i);
+					break;
 				}
 				
-				int start = ((int) (POPULATION_SIZE * SELECTION_PERCENTAGE/2))*2;
-				// Ensure 'start' is within bounds and adjust if necessary
-				start = Math.max(2, Math.min(start, POPULATION_SIZE - 2)); // Ensures we have space for at least one pair of children
-								
+				if(Commons.SHOWPOPULATION)
+					printPopulation(); 
+			
+				int start = (int) (POPULATION_SIZE * SELECTION_PERCENTAGE);
+				
+				start = Math.max(2, Math.min(start, POPULATION_SIZE - 2)); 
+				
 				for (int j = 0; j < POPULATION_SIZE - 1; j += 2) {
 					
 					if(j < start) {
@@ -105,22 +119,24 @@ public class GeneticAlgorithm {
 	                genes[i] += (Math.random() * 2 - 1) * MUTATIOMAGNITUDE;
 	            }
 	        }
-	        BreakoutNeuralNetwork newIndividual = new BreakoutNeuralNetwork(genes);
-	        if (Commons.MUTATEGETELITE) {
-	        	return individual.getFitness() > newIndividual.getFitness() ? individual : newIndividual;
-	        } else {
-	        	return newIndividual;
-	        }
+	        BreakoutNeuralNetwork newIndividual = new BreakoutNeuralNetwork(genes, seed);
+	        
+        	return newIndividual;
 	    }
 
 
-		private BreakoutNeuralNetwork selectParent() {
-			BreakoutNeuralNetwork parent1 = population[(int) (Math.random() * POPULATION_SIZE * SELECTION_PERCENTAGE)];
-			BreakoutNeuralNetwork parent2 = population[(int) (Math.random() * POPULATION_SIZE * SELECTION_PERCENTAGE)];
-			
-			if (parent1.getFitness() > parent2.getFitness()) return parent1;
-			return parent2;
-		}
+	    private BreakoutNeuralNetwork selectParent() {
+	        BreakoutNeuralNetwork best = null;
+	        for (int i = 0; i < k_tournament; i++) {
+	            int randomIndex = (int) (Math.random() * POPULATION_SIZE);
+	            BreakoutNeuralNetwork contender = population[randomIndex];
+	            if (best == null || contender.getFitness() > best.getFitness()) {
+	                best = contender;
+	            }
+	        }
+	        return best;
+	    }
+
 
 		private BreakoutNeuralNetwork[] crossover(BreakoutNeuralNetwork parent1, BreakoutNeuralNetwork parent2) {
 		    double[] genes1 = parent1.getNeuralNetwork();
@@ -128,14 +144,29 @@ public class GeneticAlgorithm {
 		    double[] child1 = new double[genes1.length];
 		    double[] child2 = new double[genes2.length];
 		    
-		    int crossoverPoint = (int) (Math.random() * genes1.length);
-		    for (int i = 0; i < genes1.length; i++) {
-		        child1[i] = (i < crossoverPoint) ? genes1[i] : genes2[i];
-		        child2[i] = (i < crossoverPoint) ? genes2[i] : genes1[i];
+		    int crossoverPoint1 = (int) (Math.random() * genes1.length);
+		    
+		    /*
+		    for(int i = 0; i < genes1.length; i++) {
+		    	child1[i] = (i < crossoverPoint1) ? genes1[i] : genes2[i];
+		        child2[i] = (i < crossoverPoint1) ? genes2[i] : genes1[i];
 		    }
 		    
-		    BreakoutNeuralNetwork offspring1 = new BreakoutNeuralNetwork(child1);
-		    BreakoutNeuralNetwork offspring2 = new BreakoutNeuralNetwork(child2);
+		     */
+		    
+		    int crossoverPoint2 = (int) ((Math.random() * (genes1.length - crossoverPoint1)) + crossoverPoint1);
+		    for (int i = 0; i < genes1.length; i++) {
+		    	 if (i > crossoverPoint1 && i < crossoverPoint2) {
+		    	        child1[i] = genes2[i];
+		    	        child2[i] = genes1[i];
+		    	    } else {
+		    	        child1[i] = genes1[i];
+		    	        child2[i] = genes2[i];
+		    	    }
+		    }
+		    
+		    BreakoutNeuralNetwork offspring1 = new BreakoutNeuralNetwork(child1, seed);
+		    BreakoutNeuralNetwork offspring2 = new BreakoutNeuralNetwork(child2, seed);
 		    return new BreakoutNeuralNetwork[]{offspring1, offspring2};
 		}
 
