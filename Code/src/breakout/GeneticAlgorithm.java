@@ -115,7 +115,6 @@ public class GeneticAlgorithm {
 	        double[] genes = individual.getNeuralNetwork();
 	        for (int i = 0; i < genes.length; i++) {
 	            if (Math.random() < MUTATION_RATE) {
-	                // Adjust the gene by a small, random amount
 	                genes[i] += (Math.random() * 2 - 1) * MUTATIOMAGNITUDE;
 	            }
 	        }
