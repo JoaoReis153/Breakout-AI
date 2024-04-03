@@ -26,22 +26,14 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
         initializeParameters();
     }*/
     
-    public BreakoutNeuralNetwork(int seed) {
+    public BreakoutNeuralNetwork(int seed, double initialDiversity) {
+    	this.INITIALDIVERSITY = initialDiversity != 0 ? initialDiversity : Commons.INITIALDIVERSITY;
     	this.seed = seed;
         initializeParameters();
     }
-    /*
-    public BreakoutNeuralNetwork(double[] values) {
-        int maxSize = Commons.BREAKOUT_NETWORK_SIZE;
-        if (values.length == maxSize) {
-            initializeNetwork(values);
-        } else {
-            throw new IllegalArgumentException("Incorrect size of input values array");
-        }
-    }*/
     
-    
-    public BreakoutNeuralNetwork(double[] values, int seed) {
+    public BreakoutNeuralNetwork(double[] values, int seed, double initialDiversity) {
+    	this.INITIALDIVERSITY = initialDiversity != 0 ? initialDiversity : Commons.INITIALDIVERSITY;
     	this.seed = seed;
         int maxSize = Commons.BREAKOUT_NETWORK_SIZE;
         if (values.length == maxSize) {
@@ -51,6 +43,9 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
         }
     }
 
+    
+    
+    
     
 	public void initializeNetwork(double[] values) {
 	    // Initialize network with specified set of values
