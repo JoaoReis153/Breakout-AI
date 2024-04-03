@@ -28,17 +28,17 @@ public interface Commons {
 	public static final int NUM_GENERATIONS = 100;
 	
 	//public static final boolean MUTATEGETELITE = false;
-	public static final double INITIALDIVERSITY = Math.sqrt(8.0 / BREAKOUT_STATE_SIZE);
-	public static final double MUTATION_RATE = .3;
+	public static final double INITIALDIVERSITY = .4+Math.sqrt(8.0 / BREAKOUT_STATE_SIZE);
+	public static final double MUTATION_RATE = .4;
 	public static final double MUTATIONMAGNITUDE = .3;
-	public static final double SELECTION_PERCENTAGE = 0.2;
+	public static final double SELECTION_PERCENTAGE = 0.18;
 	
 	
 	//DEBUG STUFF
-	public static final boolean TESTDIFFERENTVALUES = true;
+	public static final boolean TESTDIFFERENTVALUES = false;
 	public static final boolean TESTDIFFERENTSEEDS = false;
-	public static final boolean DEFAULT = false;
-	public static final int SEED = 6;
+	public static final boolean DEFAULT = true;
+	public static final int SEED = 1958410119;
 	
 	public static final boolean SHOWPOPULATION = false;
 	public static final boolean SHOWEVERY_TEN = false;
@@ -47,5 +47,5 @@ public interface Commons {
 	public static final boolean SHOWNEWBEST = true;
 
 	public static final boolean BREAKIFNOTHINGININTERVAL = true;
-	public static int BREAKINTERVAL = 30;
+	public static int BREAKINTERVAL = 50;
 }
