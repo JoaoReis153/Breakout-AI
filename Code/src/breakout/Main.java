@@ -10,7 +10,7 @@ public class Main {
 		if(Commons.TESTDIFFERENTVALUES) {
 			System.out.println("Testing different values...\n\n");
 			TestValues test = new TestValues(15);
-			System.out.println("\n\nBest values: ");
+			System.out.println("\n\nBest average: " + test.getBest().getResult());
 			System.out.println(test.getBest());
 		}
  		
