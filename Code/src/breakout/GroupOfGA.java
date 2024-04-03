@@ -12,8 +12,8 @@ public class GroupOfGA {
 	private double INITIALDIVERSITY = Commons.INITIALDIVERSITY;
 	
 	
-	int n = 5;
-	long s = 1000L;
+	int n = 10;
+	long s = 1200L;
 	
 	Random r = new Random(s);
 	

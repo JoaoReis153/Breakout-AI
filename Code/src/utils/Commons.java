@@ -47,5 +47,5 @@ public interface Commons {
 	public static final boolean SHOWNEWBEST = true;
 
 	public static final boolean BREAKIFNOTHINGININTERVAL = true;
-	public static int BREAKINTERVAL = 20;
+	public static int BREAKINTERVAL = 30;
 }
