@@ -10,12 +10,12 @@ public class GroupOfGA {
 	private double MUTATIONMAGNITUDE = Commons.MUTATIONMAGNITUDE;
 	private double SELECTION_PERCENTAGE = Commons.SELECTION_PERCENTAGE;
 	private double INITIALDIVERSITY = Commons.INITIALDIVERSITY;
+	private int kSelectionPoints = Commons.N_CROSSOVERPOINTS;
 	
 	
-	int n = 10;
-	long s = 1200L;
+	int n = Commons.N_SEEDS;
 	
-	Random r = new Random(s);
+	Random r = new Random(Commons.DIFFERENTSEEDS_RANDOMSEEDGENERATOR);
 	
 	GeneticAlgorithm[] gaList = new GeneticAlgorithm[n];
 	
@@ -32,7 +32,7 @@ public class GroupOfGA {
 		for(int i = 0; i < gaList.length; i++) {
 			//int s = (int) (i * Math.random() * 100000);
 			int s = r.nextInt(10000);
-			gaList[i] = new GeneticAlgorithm(s, INITIALDIVERSITY, MUTATION_RATE, MUTATIONMAGNITUDE, SELECTION_PERCENTAGE);
+			gaList[i] = new GeneticAlgorithm(s, INITIALDIVERSITY, MUTATION_RATE, MUTATIONMAGNITUDE, SELECTION_PERCENTAGE, kSelectionPoints);
 		}
 	}
 
@@ -47,7 +47,7 @@ public class GroupOfGA {
 
 	@Override
 	public String toString() {
-		return "GroupOfGA [\nINITIALDIVERSITY=" + INITIALDIVERSITY + "MUTATION_RATE=" + MUTATION_RATE + "\n MUTATIONMAGNITUDE=" + MUTATIONMAGNITUDE
+		return "GroupOfGA [\nkSelectionPoints = " + kSelectionPoints + "\nINITIALDIVERSITY=" + INITIALDIVERSITY + "MUTATION_RATE=" + MUTATION_RATE + "\n MUTATIONMAGNITUDE=" + MUTATIONMAGNITUDE
 				+ "\n SELECTION_PERCENTAGE=" + SELECTION_PERCENTAGE + "\n]";
 	}
 	

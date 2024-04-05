@@ -9,8 +9,7 @@ public class TestValues {
 	double bestAverage = 0;
 	GroupOfGA best = null;
 
-	int n = 10;
-	long s = 10L;
+	int n = Commons.N_VALUES_TO_TEST;
 	
 	public TestValues(int n) {
 		this.n = n;
@@ -22,7 +21,7 @@ public class TestValues {
 		for(int i = 0; i < n; i++) {
 			System.out.println("########################################################################################");
 			System.out.println("Test " + i + "\n");
-			double INITIALDIVERSITY = Math.abs(Commons.INITIALDIVERSITY + ((2 * Math.random()) - 1) * 0.4) ;
+			double INITIALDIVERSITY = Math.abs(Commons.INITIALDIVERSITY + ((2 * Math.random()) - 1)/2);
 			double MUTATION_RATE =  Math.abs(Commons.MUTATION_RATE + ((2 * Math.random()) - 1) * 0.2) ;
 			double MUTATIONMAGNITUDE =  Math.abs(Commons.MUTATIONMAGNITUDE + ((2 * Math.random()) - 1) * 0.2);
 			double SELECTION_PERCENTAGE =  Math.abs(Commons.SELECTION_PERCENTAGE + ((2 * Math.random()) - 1) * 0.1);

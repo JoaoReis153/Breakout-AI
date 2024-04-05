@@ -26,7 +26,7 @@ public class Main {
 		if(Commons.DEFAULT) {			
 			GeneticAlgorithm ga = new GeneticAlgorithm();
 			BreakoutNeuralNetwork nn = ga.getChampion();
-			Breakout a = new Breakout(nn, nn.getSeed());
+			Breakout game = new Breakout(nn, nn.getSeed());
 		}
 		
 	}
