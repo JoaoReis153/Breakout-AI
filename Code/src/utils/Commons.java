@@ -14,12 +14,11 @@ public interface Commons {
     
 	public static final int BREAKOUT_STATE_SIZE = 7;
 	public static final int BREAKOUT_HIDDEN_LAYER = 5;
-	public static final int BREAKOUT_SECOND_HIDDEN_LAYER = 5;
+	//public static final int BREAKOUT_SECOND_HIDDEN_LAYER = 5;
 	public static final int BREAKOUT_NUM_ACTIONS = 2;
 
 	public static final int BREAKOUT_NETWORK_SIZE = (BREAKOUT_STATE_SIZE * BREAKOUT_HIDDEN_LAYER) + BREAKOUT_HIDDEN_LAYER + 
-	                                       (BREAKOUT_HIDDEN_LAYER * BREAKOUT_SECOND_HIDDEN_LAYER) + BREAKOUT_SECOND_HIDDEN_LAYER + 
-	                                       (BREAKOUT_SECOND_HIDDEN_LAYER * BREAKOUT_NUM_ACTIONS) + BREAKOUT_NUM_ACTIONS;
+	                                       (BREAKOUT_HIDDEN_LAYER * BREAKOUT_NUM_ACTIONS) + BREAKOUT_NUM_ACTIONS;
 
 	
 	
@@ -28,29 +27,29 @@ public interface Commons {
 	public static final int NUM_GENERATIONS = 100;
 	
 	//public static final boolean MUTATEGETELITE = false;
-	public static final double INITIALDIVERSITY = .4 + Math.sqrt(8.0 / BREAKOUT_STATE_SIZE);
-	public static final double MUTATION_RATE = .4;
-	public static final double MUTATIONMAGNITUDE = .3;
-	public static final double SELECTION_PERCENTAGE = 0.18;
+	public static final double INITIALDIVERSITY = 1.25;
+	public static final double MUTATION_RATE = .35;
+	public static final double MUTATIONMAGNITUDE = .45;
+	public static final double SELECTION_PERCENTAGE = 0.15;
 	
 	//TESTING
 		//Crossover
 		public static final boolean MULTIPLEPOINTCROSSOVER = false; //if false é o normal
 		public static final int N_CROSSOVERPOINTS = 4; 
 		//Select Parent
-		public static final int K_TOURNAMENT = 10;
+		public static final int K_TOURNAMENT = 5;
 	
 	
 	//DEBUG STUFF
 	public static final boolean TESTDIFFERENTVALUES = true;
-	public static final int N_VALUES_TO_TEST = 10; 
+	public static final int N_VALUES_TO_TEST = 200; 
 	
 	public static final boolean TESTDIFFERENTSEEDS = false;
-	public static final long DIFFERENTSEEDS_RANDOMSEEDGENERATOR = 10L;
+	public static final long DIFFERENTSEEDS_RANDOMSEEDGENERATOR = 153L;
 	public static final int N_SEEDS = 10;
 	
 	public static final boolean DEFAULT = false;
-	public static final int SEED = 111111;
+	public static final int SEED = 1;
 	//
 	
 	
@@ -58,9 +57,9 @@ public interface Commons {
 	public static final boolean SHOWEVERY_TEN = false;
 	public static final boolean SHOWGENERATION = false;
 	
-	public static final boolean SHOWNEWBEST = false;
+	public static final boolean SHOWNEWBEST = true;
 	public static final boolean PLAYNEWBEST = false;
 
 	public static final boolean BREAKIFNOTHINGININTERVAL = true;
-	public static int BREAKINTERVAL = 20;
+	public static int BREAKINTERVAL = 15;
 }
