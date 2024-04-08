@@ -27,10 +27,10 @@ public interface Commons {
 	public static final int NUM_GENERATIONS = 1000;
 	
 	//public static final boolean MUTATEGETELITE = false;
-	public static final double INITIALDIVERSITY = 2.65;
-	public static final double MUTATION_RATE = .14;
-	public static final double MUTATIONMAGNITUDE = .317;
-	public static final double SELECTION_PERCENTAGE = 0.20;
+	public static final double INITIALDIVERSITY = 4.108609921977563;
+	public static final double MUTATION_RATE = .1;//0.06716330469467158
+	public static final double MUTATIONMAGNITUDE = 1.4897853464639497;
+	public static final double SELECTION_PERCENTAGE = 0.32090762272935236;
 	
 	//TESTING
 		//Crossover
@@ -41,15 +41,15 @@ public interface Commons {
 	
 	
 	//DEBUG STUFF
-	public static final boolean TESTDIFFERENTVALUES = false;
+	public static final boolean TESTDIFFERENTVALUES = true;
 	public static final int N_VALUES_TO_TEST = 50; 
 	
 	public static final boolean TESTDIFFERENTSEEDS = false;
-	public static final long DIFFERENTSEEDS_RANDOMSEEDGENERATOR = 444444L;
-	public static final int N_SEEDS = 10;
+	public static final long DIFFERENTSEEDS_RANDOMSEEDGENERATOR = 88888L;
+	public static final int N_SEEDS = 5;
 	
-	public static final boolean DEFAULT = true;
-	public static final int SEED = 1;
+	public static final boolean DEFAULT = false;
+	public static final int SEED = 5;
 	//
 	
 	
@@ -60,6 +60,6 @@ public interface Commons {
 	public static final boolean SHOWNEWBEST = true;
 	public static final boolean PLAYNEWBEST = false;
 
-	public static final boolean BREAKIFNOTHINGININTERVAL = false;
+	public static final boolean BREAKIFNOTHINGININTERVAL = true;
 	public static int BREAKINTERVAL = 15;
 }

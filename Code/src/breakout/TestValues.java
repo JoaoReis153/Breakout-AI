@@ -27,9 +27,9 @@ public class TestValues {
 			System.out.println(best);
 			System.out.println("########################################################################################");
 			System.out.println("Test " + i + "\n");
-			double INITIALDIVERSITY = 5 * Math.random();//Math.abs(Commons.INITIALDIVERSITY + ((2 * Math.random()) - 1)/2);
+			double INITIALDIVERSITY = i * Math.random();//Math.abs(Commons.INITIALDIVERSITY + ((2 * Math.random()) - 1)/2);
 			double MUTATION_RATE =  Math.random();//Math.abs(Commons.MUTATION_RATE + ((2 * Math.random()) - 1) * 0.2) ;
-			double MUTATIONMAGNITUDE =  4 * Math.random();//Math.abs(Commons.MUTATIONMAGNITUDE + ((2 * Math.random()) - 1) * 0.2);
+			double MUTATIONMAGNITUDE = (n/(n-i) * Math.random();//Math.abs(Commons.MUTATIONMAGNITUDE + ((2 * Math.random()) - 1) * 0.2);
 			double SELECTION_PERCENTAGE =  Math.random();//Math.abs(Commons.SELECTION_PERCENTAGE + ((2 * Math.random()) - 1) * 0.1);
 			System.out.println("initialDiversity: " + INITIALDIVERSITY);
 			System.out.println("mutationRate: " + MUTATION_RATE);
