@@ -47,7 +47,7 @@ public class GroupOfGA {
 
 	@Override
 	public String toString() {
-		return "GroupOfGA [\nkSelectionPoints = " + kSelectionPoints + "\nINITIALDIVERSITY=" + INITIALDIVERSITY + "MUTATION_RATE=" + MUTATION_RATE + "\n MUTATIONMAGNITUDE=" + MUTATIONMAGNITUDE
+		return "GroupOfGA [\nkSelectionPoints = " + kSelectionPoints + "\nINITIALDIVERSITY=" + INITIALDIVERSITY + "\nMUTATION_RATE=" + MUTATION_RATE + "\n MUTATIONMAGNITUDE=" + MUTATIONMAGNITUDE
 				+ "\n SELECTION_PERCENTAGE=" + SELECTION_PERCENTAGE + "\n]";
 	}
 	
