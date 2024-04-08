@@ -2,15 +2,18 @@ package breakout;
 
 import java.util.Random;
 
+import org.ietf.jgss.Oid;
+
 import utils.Commons;
 
-public class GroupOfGA {
+public class GroupOfGA implements Comparable<GroupOfGA>{
 
 	private double MUTATION_RATE = Commons.MUTATION_RATE;
 	private double MUTATIONMAGNITUDE = Commons.MUTATIONMAGNITUDE;
 	private double SELECTION_PERCENTAGE = Commons.SELECTION_PERCENTAGE;
 	private double INITIALDIVERSITY = Commons.INITIALDIVERSITY;
 	private int kSelectionPoints = Commons.N_CROSSOVERPOINTS;
+	private double average = 0;
 	
 	
 	int n = Commons.N_SEEDS;
@@ -41,14 +44,19 @@ public class GroupOfGA {
 		for(int i = 0; i < gaList.length; i++) {
 			sum += gaList[i].getChampion().getFitness();
 		}
-		
-		return sum/n;
+		average = sum/n;
+		return average;
 	}
 
 	@Override
 	public String toString() {
-		return "GroupOfGA [\nkSelectionPoints = " + kSelectionPoints + "\nINITIALDIVERSITY=" + INITIALDIVERSITY + "\nMUTATION_RATE=" + MUTATION_RATE + "\n MUTATIONMAGNITUDE=" + MUTATIONMAGNITUDE
+		return "GroupOfGA (" + average + ") [\n INITIALDIVERSITY=" + INITIALDIVERSITY + "\n MUTATION_RATE=" + MUTATION_RATE + "\n MUTATIONMAGNITUDE=" + MUTATIONMAGNITUDE
 				+ "\n SELECTION_PERCENTAGE=" + SELECTION_PERCENTAGE + "\n]";
+	}
+
+	@Override
+	public int compareTo(GroupOfGA o) {
+		return Double.compare(getResult(), o.getResult());
 	}
 	
 	

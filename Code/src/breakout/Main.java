@@ -9,7 +9,7 @@ public class Main {
 		//BreakoutNeuralNetwork n = new BreakoutNeuralNetwork();
 		if(Commons.TESTDIFFERENTVALUES) {
 			System.out.println("Testing different values...\n\n");
-			TestValues test = new TestValues(5);
+			TestValues test = new TestValues();
 			System.out.println("\n\nBest average: " + test.getBest().getResult());
 			System.out.println(test.getBest());
 		}
