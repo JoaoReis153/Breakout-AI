@@ -10,7 +10,7 @@ public interface Commons {
 	public static final int INIT_PADDLE_Y = 360;
 	public static final int INIT_BALL_X = 230;
 	public static final int INIT_BALL_Y = 355;    
-	public static final int PERIOD = 2;
+	public static final int PERIOD = 4;
     
 	public static final int BREAKOUT_STATE_SIZE = 7;
 	public static final int BREAKOUT_HIDDEN_LAYER = 5;
@@ -24,13 +24,14 @@ public interface Commons {
 	
 	//GA Breakoout
 	public static final int POPULATION_SIZE = 100;
-	public static final int NUM_GENERATIONS = 1000;
+	public static final int NUM_GENERATIONS = 500;
 	
 	//public static final boolean MUTATEGETELITE = false;
-	public static final double INITIALDIVERSITY = 4.108609921977563;
-	public static final double MUTATION_RATE = .1;//0.06716330469467158
-	public static final double MUTATIONMAGNITUDE = 1.4897853464639497;
-	public static final double SELECTION_PERCENTAGE = 0.32090762272935236;
+	public static final double INITIALDIVERSITY = .8;
+	public static final double MUTATION_RATE = .1;
+	public static final double MUTATIONMAGNITUDE = 1.7;
+	public static final double SELECTION_PERCENTAGE = 0.15;
+	public static final int MUTATION_CHANGE_NPOINTS = 5;
 	
 	//TESTING
 		//Crossover
@@ -41,25 +42,25 @@ public interface Commons {
 	
 	
 	//DEBUG STUFF
-	public static final boolean TESTDIFFERENTVALUES = true;
+	public static final boolean TESTDIFFERENTVALUES = false;
 	public static final int N_VALUES_TO_TEST = 50; 
 	
-	public static final boolean TESTDIFFERENTSEEDS = false;
-	public static final long DIFFERENTSEEDS_RANDOMSEEDGENERATOR = 88888L;
+	public static final boolean TESTDIFFERENTSEEDS = true;
+	public static final long DIFFERENTSEEDS_RANDOMSEEDGENERATOR = 1914802;
 	public static final int N_SEEDS = 5;
 	
 	public static final boolean DEFAULT = false;
-	public static final int SEED = 5;
+	public static final int SEED = 1;
 	//
 	
 	
 	public static final boolean SHOWPOPULATION = false;
 	public static final boolean SHOWEVERY_TEN = false;
-	public static final boolean SHOWGENERATION = false;
+	public static final boolean SHOWGENERATION = true;
 	
 	public static final boolean SHOWNEWBEST = true;
 	public static final boolean PLAYNEWBEST = false;
 
 	public static final boolean BREAKIFNOTHINGININTERVAL = true;
-	public static int BREAKINTERVAL = 15;
+	public static int BREAKINTERVAL = 25;
 }

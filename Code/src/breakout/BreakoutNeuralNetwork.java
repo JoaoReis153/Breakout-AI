@@ -120,10 +120,6 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
 			return 1;
 		return 2;
 	}
-    
-    private double tanh(double x) {
-        return (Math.exp(x) - Math.exp(-x)) / (Math.exp(x) + Math.exp(-x));
-    }
 
     private double sigmoid(double x) {
     	return 1/(1+Math.exp(-x));

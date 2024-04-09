@@ -12,7 +12,6 @@ public class GroupOfGA implements Comparable<GroupOfGA>{
 	private double MUTATIONMAGNITUDE = Commons.MUTATIONMAGNITUDE;
 	private double SELECTION_PERCENTAGE = Commons.SELECTION_PERCENTAGE;
 	private double INITIALDIVERSITY = Commons.INITIALDIVERSITY;
-	private int kSelectionPoints = Commons.N_CROSSOVERPOINTS;
 	private double average = 0;
 	
 	
@@ -30,12 +29,28 @@ public class GroupOfGA implements Comparable<GroupOfGA>{
 		initializeGeneticAlgoirthms();
 	}
 
+	public double getMUTATION_RATE() {
+		return MUTATION_RATE;
+	}
+
+	public double getMUTATIONMAGNITUDE() {
+		return MUTATIONMAGNITUDE;
+	}
+
+	public double getSELECTION_PERCENTAGE() {
+		return SELECTION_PERCENTAGE;
+	}
+
+	public double getINITIALDIVERSITY() {
+		return INITIALDIVERSITY;
+	}
+
 	private void initializeGeneticAlgoirthms() {
 		// TODO Auto-generated method stub
 		for(int i = 0; i < gaList.length; i++) {
 			//int s = (int) (i * Math.random() * 100000);
 			int s = r.nextInt(10000);
-			gaList[i] = new GeneticAlgorithm(s, INITIALDIVERSITY, MUTATION_RATE, MUTATIONMAGNITUDE, SELECTION_PERCENTAGE, kSelectionPoints);
+			gaList[i] = new GeneticAlgorithm(s, INITIALDIVERSITY, MUTATION_RATE, MUTATIONMAGNITUDE, SELECTION_PERCENTAGE);
 		}
 	}
 
