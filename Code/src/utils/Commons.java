@@ -27,10 +27,10 @@ public interface Commons {
 	public static final int NUM_GENERATIONS = 500;
 	
 	//public static final boolean MUTATEGETELITE = false;
-	public static final double INITIALDIVERSITY = .8;
-	public static final double MUTATION_RATE = .1;
-	public static final double MUTATIONMAGNITUDE = 1.7;
-	public static final double SELECTION_PERCENTAGE = 0.15;
+	public static final double INITIALDIVERSITY = 1.53;
+	public static final double MUTATION_RATE = 0.11;
+	public static final double MUTATIONMAGNITUDE = 0.12;
+	public static final double SELECTION_PERCENTAGE = 0.36;
 	public static final int MUTATION_CHANGE_NPOINTS = 5;
 	
 	//TESTING
@@ -43,10 +43,10 @@ public interface Commons {
 	
 	//DEBUG STUFF
 	public static final boolean TESTDIFFERENTVALUES = false;
-	public static final int N_VALUES_TO_TEST = 50; 
+	public static final int N_VALUES_TO_TEST = 500; 
 	
-	public static final boolean TESTDIFFERENTSEEDS = true;
-	public static final long DIFFERENTSEEDS_RANDOMSEEDGENERATOR = 1914802;
+	public static final boolean TESTDIFFERENTSEEDS = false;
+	public static final long DIFFERENTSEEDS_RANDOMSEEDGENERATOR = 75672575;
 	public static final int N_SEEDS = 5;
 	
 	public static final boolean DEFAULT = false;
@@ -56,7 +56,7 @@ public interface Commons {
 	
 	public static final boolean SHOWPOPULATION = false;
 	public static final boolean SHOWEVERY_TEN = false;
-	public static final boolean SHOWGENERATION = true;
+	public static final boolean SHOWGENERATION = false;
 	
 	public static final boolean SHOWNEWBEST = true;
 	public static final boolean PLAYNEWBEST = false;

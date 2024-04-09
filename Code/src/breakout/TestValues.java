@@ -28,15 +28,15 @@ public class TestValues {
 			System.out.println("########################################################################################");
 			System.out.println("Test " + i + "\n");
 			
-			//double INITIALDIVERSITY = 0;// i * Math.random();//Math.abs(Commons.INITIALDIVERSITY + ((2 * Math.random()) - 1)/2);
-			//double MUTATION_RATE =  0.4 * Math.random();//Math.abs(Commons.MUTATION_RATE + ((2 * Math.random()) - 1) * 0.2) ;
-			//double MUTATIONMAGNITUDE = 3 * Math.random();//(n/(n-i) * Math.random());//Math.abs(Commons.MUTATIONMAGNITUDE + ((2 * Math.random()) - 1) * 0.2);
-			//double SELECTION_PERCENTAGE =  0.5 * Math.random();//Math.abs(Commons.SELECTION_PERCENTAGE + ((2 * Math.random()) - 1) * 0.1);
+			double INITIALDIVERSITY = 1 + Math.random();
+			double MUTATION_RATE =  0.01 + 0.1 * Math.random();
+			double MUTATIONMAGNITUDE = Math.random();//(n/(n-i) * Math.random());
+			double SELECTION_PERCENTAGE =  0.2 + 0.3 * Math.random();
 
-			double INITIALDIVERSITY = Math.abs(best.getINITIALDIVERSITY() + ((2 * Math.random()) - 1) * .5);
-			double MUTATION_RATE =  Math.min(Math.abs(best.getMUTATION_RATE() + ((2 * Math.random()) - 1) * 0.1), 1) ;
-			double MUTATIONMAGNITUDE = Math.abs(best.getMUTATIONMAGNITUDE() + ((2 * Math.random()) - 1) * 0.2);
-			double SELECTION_PERCENTAGE = Math.min(Math.abs(best.getSELECTION_PERCENTAGE()+ ((2 * Math.random()) - 1) * 0.1), 1);
+			//double INITIALDIVERSITY = Math.abs(best.getINITIALDIVERSITY() + ((2 * Math.random()) - 1) * .2);
+			//double MUTATION_RATE =  Math.min(Math.abs(best.getMUTATION_RATE() + ((2 * Math.random()) - 1) * .2), 1) ;
+			//double MUTATIONMAGNITUDE = Math.abs(best.getMUTATIONMAGNITUDE() + ((2 * Math.random()) - 1) * .2);
+			//double SELECTION_PERCENTAGE = Math.min(Math.abs(best.getSELECTION_PERCENTAGE()+ ((2 * Math.random()) - 1) * .2), 1);
 			
 			System.out.println("initialDiversity: " + INITIALDIVERSITY);
 			System.out.println("mutationRate: " + MUTATION_RATE);
