@@ -27,6 +27,7 @@ public interface Commons {
 	public static final int NUM_GENERATIONS = 500;
 	
 	//public static final boolean MUTATEGETELITE = false;
+
 	public static final double INITIALDIVERSITY = 1.2;
 	public static final double MUTATION_RATE = .6;
 	public static final double MUTATION_CHANGE_PERCENTAGE = .75;
@@ -39,12 +40,14 @@ public interface Commons {
 	
 	
 	//DEBUG STUFF
+
 	public static final boolean TESTDIFFERENTVALUES = true;
-	public static final int N_VALUES_TO_TEST = 50; 
+	public static final int N_VALUES_TO_TEST = 500; 
 	
 	public static final boolean TESTDIFFERENTSEEDS = false;
 	public static final int INIITIAL_SEED = 1;
 	public static final int N_SEEDS = 3;
+
 	
 	public static final boolean DEFAULT = false;
 	public static final int SEED = 1;

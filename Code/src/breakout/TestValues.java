@@ -28,6 +28,7 @@ public class TestValues {
 			System.out.println("########################################################################################");
 			System.out.println("Test " + i + "\n");
 			
+
 			double INITIALDIVERSITY_range =  ((2 * Math.random()) - 1) * 1;
 			double MUTATION_RATE_range = ((2 * Math.random()) - 1) * 0.4;
 			double MUTATIONCHANGEPERCENTAGE_range = ((2 * Math.random()) - 1) * 0.1;
@@ -51,7 +52,7 @@ public class TestValues {
 				SELECTION_PERCENTAGE = Math.min(Math.abs(best.getSELECTION_PERCENTAGE() + SELECTION_PERCENTAGE_range), 1);
 				
 			}
-			
+
 			System.out.println("initialDiversity: " + INITIALDIVERSITY);
 			System.out.println("mutationRate: " + MUTATION_RATE);
 			System.out.println("mutationChangePercentage: " + MUTATIONCHANGEPERCENTAGE);
