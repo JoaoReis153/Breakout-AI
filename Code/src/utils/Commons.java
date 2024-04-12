@@ -24,13 +24,13 @@ public interface Commons {
 	
 	//GA Breakoout
 	public static final int POPULATION_SIZE = 100;
-	public static final int NUM_GENERATIONS = 500;
+	public static final int NUM_GENERATIONS = 5000;
 	
 	//public static final boolean MUTATEGETELITE = false;
 
-	public static final double INITIALDIVERSITY = 1.2;
-	public static final double MUTATION_RATE = .6;
-	public static final double MUTATION_CHANGE_PERCENTAGE = .75;
+	public static final double INITIALDIVERSITY = 1.8;
+	public static final double MUTATION_RATE = .4;
+	public static final double MUTATION_CHANGE_PERCENTAGE = .5;
 	public static final double MUTATIONMAGNITUDE = .15;
 	public static final double SELECTION_PERCENTAGE = 0.1;
 	
@@ -62,5 +62,5 @@ public interface Commons {
 	public static final boolean PLAYNEWBEST = false;
 
 	public static final boolean BREAKIFNOTHINGININTERVAL = true;
-	public static int BREAKINTERVAL = 25;
+	public static int BREAKINTERVAL = 50;
 }
