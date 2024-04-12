@@ -9,6 +9,7 @@ public class GeneticAlgorithm {
 		private static int POPULATION_SIZE = Commons.POPULATION_SIZE;
 		private static int NUM_GENERATIONS = Commons.NUM_GENERATIONS;
 		
+		private double MUTATION_CHANGE_PERCENTAGE = Commons.MUTATION_CHANGE_PERCENTAGE;
 		private double MUTATION_RATE = Commons.MUTATION_RATE;
 		private double MUTATIONMAGNITUDE = Commons.MUTATIONMAGNITUDE;
 		private double SELECTION_PERCENTAGE = Commons.SELECTION_PERCENTAGE;
@@ -32,7 +33,8 @@ public class GeneticAlgorithm {
 	        System.out.println(champion);
 	    }
 	    
-	    GeneticAlgorithm(int seed, double initialDiversity, double mutationRate, double mutationMagnitude, double selectionPercentage){
+	    GeneticAlgorithm(int seed, double initialDiversity, double mutationRate, double mutationChangePercentage, double mutationMagnitude, double selectionPercentage){
+	    	this.MUTATION_CHANGE_PERCENTAGE = mutationChangePercentage != 0 ? mutationChangePercentage : Commons.MUTATION_CHANGE_PERCENTAGE;
 	    	this.MUTATION_RATE = mutationRate != 0 ? mutationRate : Commons.MUTATION_RATE;
 			this.MUTATIONMAGNITUDE = mutationMagnitude != 0 ? mutationMagnitude : Commons.MUTATIONMAGNITUDE;
 			this.SELECTION_PERCENTAGE = selectionPercentage != 0 ? selectionPercentage : Commons.SELECTION_PERCENTAGE;
@@ -114,9 +116,7 @@ public class GeneticAlgorithm {
 						BreakoutNeuralNetwork[] children = null;
 						
 						//Crossover
-						if(Commons.MULTIPLEPOINTCROSSOVER) children = crossover(parent1, parent2);
-						else children = crossover(parent1, parent2); 
-						
+						children = crossover(parent1, parent2); 
 						
 						newGeneration[j] = mutate(children[0]);
 						newGeneration[j + 1]  = mutate(children[1]);
@@ -134,10 +134,10 @@ public class GeneticAlgorithm {
 	    private BreakoutNeuralNetwork mutate(BreakoutNeuralNetwork individual) {
 	        double[] genes = individual.getNeuralNetwork();
 	        if (Math.random() < MUTATION_RATE) {
-		        for (int i = 0; i < Commons.MUTATION_CHANGE_NPOINTS; i++) {
-	                // Adjust the gene by a small, random amount
+		        for (int i = 0; i < MUTATION_CHANGE_PERCENTAGE * Commons.BREAKOUT_NETWORK_SIZE; i++) {
 		        	int index = (int) (Math.random() * Commons.BREAKOUT_NETWORK_SIZE);
-	                genes[index] += (Math.random() * 2 - 1) * MUTATIONMAGNITUDE;
+	                //genes[index] += (Math.random() * 2 - 1) * MUTATIONMAGNITUDE;
+		        	genes[index] = (Math.random() * 2 - 1) * MUTATIONMAGNITUDE;
 	            }
 	        }
 	        individual.initializeNetwork(genes);
@@ -160,9 +160,14 @@ public class GeneticAlgorithm {
 		    double[] child2 = new double[genes2.length];
 		    
 		    int crossoverPoint = (int) (Math.random() * genes1.length);
+		    
 		    for (int i = 0; i < genes1.length; i++) {
-		        child1[i] = (i < crossoverPoint) ? genes1[i] : genes2[i];
+		    	child1[i] = (genes1[i]*0.3+genes2[i]*0.7) / 2;
+		    	child2[i] = (genes1[i]*0.7+genes2[i]*0.3) / 2;
+		    	/*
+		    	child1[i] = (i < crossoverPoint) ? genes1[i] : genes2[i];
 		        child2[i] = (i < crossoverPoint) ? genes2[i] : genes1[i];
+		        */
 		    }
 		    
 		    BreakoutNeuralNetwork offspring1 = new BreakoutNeuralNetwork(child1, seed, INITIALDIVERSITY);

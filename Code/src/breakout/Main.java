@@ -15,7 +15,7 @@ public class Main {
 		}
  		
 		if(Commons.TESTDIFFERENTSEEDS) {
-			GroupOfGA tdiffSeeds = new GroupOfGA(0,0,0,0);
+			GroupOfGA tdiffSeeds = new GroupOfGA(0,0,0,0,0);
 			System.out.println();
 			System.out.println();
 			System.out.println("Average: ");

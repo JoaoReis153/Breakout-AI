@@ -15,7 +15,7 @@ public class TestValues {
 
 	
 	public TestValues() {
-		best = new GroupOfGA(Commons.INITIALDIVERSITY, Commons.MUTATION_RATE, Commons.MUTATIONMAGNITUDE, Commons.SELECTION_PERCENTAGE);
+		best = new GroupOfGA(Commons.INITIALDIVERSITY, Commons.MUTATION_RATE, Commons.MUTATION_CHANGE_PERCENTAGE,Commons.MUTATIONMAGNITUDE, Commons.SELECTION_PERCENTAGE);
 		initializeGroupsOfGAs();
 	}
 
@@ -28,21 +28,36 @@ public class TestValues {
 			System.out.println("########################################################################################");
 			System.out.println("Test " + i + "\n");
 			
-			//double INITIALDIVERSITY = 0;// i * Math.random();//Math.abs(Commons.INITIALDIVERSITY + ((2 * Math.random()) - 1)/2);
-			//double MUTATION_RATE =  0.4 * Math.random();//Math.abs(Commons.MUTATION_RATE + ((2 * Math.random()) - 1) * 0.2) ;
-			//double MUTATIONMAGNITUDE = 3 * Math.random();//(n/(n-i) * Math.random());//Math.abs(Commons.MUTATIONMAGNITUDE + ((2 * Math.random()) - 1) * 0.2);
-			//double SELECTION_PERCENTAGE =  0.5 * Math.random();//Math.abs(Commons.SELECTION_PERCENTAGE + ((2 * Math.random()) - 1) * 0.1);
-
-			double INITIALDIVERSITY = Math.abs(best.getINITIALDIVERSITY() + ((2 * Math.random()) - 1) * .5);
-			double MUTATION_RATE =  Math.min(Math.abs(best.getMUTATION_RATE() + ((2 * Math.random()) - 1) * 0.1), 1) ;
-			double MUTATIONMAGNITUDE = Math.abs(best.getMUTATIONMAGNITUDE() + ((2 * Math.random()) - 1) * 0.2);
-			double SELECTION_PERCENTAGE = Math.min(Math.abs(best.getSELECTION_PERCENTAGE()+ ((2 * Math.random()) - 1) * 0.1), 1);
+			double INITIALDIVERSITY_range =  ((2 * Math.random()) - 1) * 1;
+			double MUTATION_RATE_range = ((2 * Math.random()) - 1) * 0.4;
+			double MUTATIONCHANGEPERCENTAGE_range = ((2 * Math.random()) - 1) * 0.1;
+			double MUTATIONMAGNITUDE_range = ((2 * Math.random()) - 1) * 0.2;
+			double SELECTION_PERCENTAGE_range = ((2 * Math.random()) - 1) *  0.1;
+			
+			
+			double INITIALDIVERSITY = 0.5 + 1 * Math.random();// i * Math.random();//Math.abs(Commons.INITIALDIVERSITY + ((2 * Math.random()) - 1)/2);
+			double MUTATION_RATE =  0.05 + 0.4 * Math.random();//Math.abs(Commons.MUTATION_RATE + ((2 * Math.random()) - 1) * 0.2) ;
+			double MUTATIONCHANGEPERCENTAGE = 0.2 + 0.8 * Math.random();
+			double MUTATIONMAGNITUDE = 1 * Math.random();//(n/(n-i) * Math.random());//Math.abs(Commons.MUTATIONMAGNITUDE + ((2 * Math.random()) - 1) * 0.2);
+			double SELECTION_PERCENTAGE =  0.1 + 0.4 * Math.random();//Math.abs(Commons.SELECTION_PERCENTAGE + ((2 * Math.random()) - 1) * 0.1);	
+			
+			
+			if(best.getResult() > 0) {				
+				System.out.println("yuppi!");
+				INITIALDIVERSITY = Math.abs(best.getINITIALDIVERSITY() + INITIALDIVERSITY_range);
+				MUTATION_RATE =  Math.min(Math.abs(best.getMUTATION_RATE() + MUTATION_RATE_range), 1) ;
+				MUTATIONCHANGEPERCENTAGE = Math.min(best.getMUTATIONCHANGEPERCENTAGE() + MUTATIONCHANGEPERCENTAGE_range, 1);
+				MUTATIONMAGNITUDE = Math.abs(best.getMUTATIONMAGNITUDE() + MUTATIONMAGNITUDE_range);
+				SELECTION_PERCENTAGE = Math.min(Math.abs(best.getSELECTION_PERCENTAGE() + SELECTION_PERCENTAGE_range), 1);
+				
+			}
 			
 			System.out.println("initialDiversity: " + INITIALDIVERSITY);
 			System.out.println("mutationRate: " + MUTATION_RATE);
+			System.out.println("mutationChangePercentage: " + MUTATIONCHANGEPERCENTAGE);
 			System.out.println("mutationMagnitude: " + MUTATIONMAGNITUDE);
 			System.out.println("selectionPercentage: " + SELECTION_PERCENTAGE);
-			GroupOfGA NEW = new GroupOfGA(INITIALDIVERSITY, MUTATION_RATE, MUTATIONMAGNITUDE, SELECTION_PERCENTAGE);
+			GroupOfGA NEW = new GroupOfGA(INITIALDIVERSITY, MUTATION_RATE, MUTATIONCHANGEPERCENTAGE,MUTATIONMAGNITUDE, SELECTION_PERCENTAGE);
 			if(NEW.getResult() > best.getResult()) 
 				best = NEW;
 			
