@@ -83,7 +83,7 @@ public class GeneticAlgorithm {
 				BreakoutNeuralNetwork[] newGeneration = new BreakoutNeuralNetwork[POPULATION_SIZE];
 				Arrays.sort(population);
 				
-				if(Commons.SHOWGENERATION)
+				if(Commons.SHOWGENERATION && i % 10 == 0)
 					System.out.println("Gen: " + i);
 		
 				getBest(population[0], i);
@@ -118,8 +118,8 @@ public class GeneticAlgorithm {
 						//Crossover
 						children = crossover(parent1, parent2); 
 						
-						newGeneration[j] = mutate(children[0]);
-						newGeneration[j + 1]  = mutate(children[1]);
+						newGeneration[j] = mutate(children[0],i);
+						newGeneration[j + 1]  = mutate(children[1],i);
 					}
 					
 				}
@@ -131,13 +131,13 @@ public class GeneticAlgorithm {
 		}
 	    
 	
-	    private BreakoutNeuralNetwork mutate(BreakoutNeuralNetwork individual) {
+	    private BreakoutNeuralNetwork mutate(BreakoutNeuralNetwork individual, int generation) {
 	        double[] genes = individual.getNeuralNetwork();
 	        if (Math.random() < MUTATION_RATE) {
 		        for (int i = 0; i < MUTATION_CHANGE_PERCENTAGE * Commons.BREAKOUT_NETWORK_SIZE; i++) {
 		        	int index = (int) (Math.random() * Commons.BREAKOUT_NETWORK_SIZE);
-	                //genes[index] += (Math.random() * 2 - 1) * MUTATIONMAGNITUDE;
-		        	genes[index] = (Math.random() * 2 - 1) * MUTATIONMAGNITUDE;
+	                genes[index] += (Math.random() * 2 - 1) * MUTATIONMAGNITUDE/10 + MUTATIONMAGNITUDE/(generation*0.1);
+		        	//genes[index] = (Math.random() * 2 - 1) * MUTATIONMAGNITUDE;
 	            }
 	        }
 	        individual.initializeNetwork(genes);

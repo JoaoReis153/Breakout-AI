@@ -30,9 +30,9 @@ public class TestValues {
 			
 
 			double INITIALDIVERSITY_range =  ((2 * Math.random()) - 1) * 1;
-			double MUTATION_RATE_range = ((2 * Math.random()) - 1) * 0.4;
+			double MUTATION_RATE_range = ((2 * Math.random()) - 1) * 0.1;
 			double MUTATIONCHANGEPERCENTAGE_range = ((2 * Math.random()) - 1) * 0.1;
-			double MUTATIONMAGNITUDE_range = ((2 * Math.random()) - 1) * 0.5;
+			double MUTATIONMAGNITUDE_range = ((2 * Math.random()) - 1) * 0.2;
 			double SELECTION_PERCENTAGE_range = ((2 * Math.random()) - 1) *  0.1;
 			
 			
@@ -46,19 +46,20 @@ public class TestValues {
 			if(best.getResult() > 0) {				
 				System.out.println("yuppi!");
 				INITIALDIVERSITY = Math.abs(best.getINITIALDIVERSITY() + INITIALDIVERSITY_range);
-				MUTATION_RATE =  Math.min(Math.abs(best.getMUTATION_RATE() + MUTATION_RATE_range), .5) ;
+				MUTATION_RATE =  Math.min(Math.abs(best.getMUTATION_RATE() + MUTATION_RATE_range), .4) ;
 				MUTATIONCHANGEPERCENTAGE = Math.min(best.getMUTATIONCHANGEPERCENTAGE() + MUTATIONCHANGEPERCENTAGE_range, 1);
 				MUTATIONMAGNITUDE = Math.abs(best.getMUTATIONMAGNITUDE() + MUTATIONMAGNITUDE_range);
-				SELECTION_PERCENTAGE = Math.min(Math.abs(best.getSELECTION_PERCENTAGE() + SELECTION_PERCENTAGE_range), 1);
+				SELECTION_PERCENTAGE = Math.min(Math.max(Math.abs(best.getSELECTION_PERCENTAGE() + SELECTION_PERCENTAGE_range), .05), 1);
 				
 			}
 
 			System.out.println("initialDiversity: " + INITIALDIVERSITY);
-			System.out.println("mutationRate: " + MUTATION_RATE);
+			System.out.println("mutationRate: " +MUTATION_RATE);
 			System.out.println("mutationChangePercentage: " + MUTATIONCHANGEPERCENTAGE);
 			System.out.println("mutationMagnitude: " + MUTATIONMAGNITUDE);
 			System.out.println("selectionPercentage: " + SELECTION_PERCENTAGE);
 			GroupOfGA NEW = new GroupOfGA(INITIALDIVERSITY, MUTATION_RATE, MUTATIONCHANGEPERCENTAGE,MUTATIONMAGNITUDE, SELECTION_PERCENTAGE);
+			//GroupOfGA NEW = new GroupOfGA(0, 0, 0, MUTATIONMAGNITUDE, 0);
 			if(NEW.getResult() > best.getResult()) 
 				best = NEW;
 			
