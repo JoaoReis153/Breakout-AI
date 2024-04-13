@@ -1,121 +1,117 @@
 package breakout;
 
-import java.util.Arrays;
-
 import utils.Commons;
 import utils.GameController;
 
 public class BreakoutNeuralNetwork implements GameController, Comparable<BreakoutNeuralNetwork> {
 
 	private int inputDim = Commons.BREAKOUT_STATE_SIZE;
-    private int hiddenDim = Commons.BREAKOUT_HIDDEN_LAYERS;
+    private int hiddenDim = Commons.BREAKOUT_HIDDEN_LAYER;
     private int outputDim = Commons.BREAKOUT_NUM_ACTIONS;
     private double[][] hiddenWeights;
     private double[] hiddenBiases;
     private double[][] outputWeights;
     private double[] outputBiases;
-    
-    private double hiddenWeightsMultiplier = 1;
-    private double hiddenBiasesMultiplier = 1;
-    private double outputWeightsMultipler = 1;
-    private double outputBiasesMultiplier = 1;
-    
+     
     private double INITIALDIVERSITY = Commons.INITIALDIVERSITY;
-   
-    public BreakoutNeuralNetwork() {
+    
+    private int seed = Commons.SEED; 
+    
+    public BreakoutNeuralNetwork(int seed, double initialDiversity) {
+    	this.INITIALDIVERSITY = initialDiversity != 0 ? initialDiversity : Commons.INITIALDIVERSITY;
+    	this.seed = seed;
         initializeParameters();
     }
     
-	public BreakoutNeuralNetwork(double[] values) {
-        int maxSize = (inputDim * hiddenDim + hiddenDim + outputDim * hiddenDim + outputDim) ;
-        if(values.length == maxSize) {
-        	initializeNetwork(values);        	
-        }
-        else {
-        	throw new IllegalArgumentException("Demasiado grande");
+    public BreakoutNeuralNetwork(double[] values, int seed, double initialDiversity) {
+    	this.INITIALDIVERSITY = initialDiversity != 0 ? initialDiversity : Commons.INITIALDIVERSITY;
+    	this.seed = seed;
+        int maxSize = Commons.BREAKOUT_NETWORK_SIZE; // Adjust this value as per new network size
+        if (values.length == maxSize) {
+            initializeNetwork(values);
+        } else {
+            throw new IllegalArgumentException("Incorrect size of input values array");
         }
     }
     
     public void initializeNetwork(double[] values) {
-    	// Initialize network with specified set of values
-    	// Implementation omitted for brevity
-    	hiddenWeights = new double[inputDim][hiddenDim];
-    	hiddenBiases = new double[hiddenDim];
-    	outputWeights = new double[hiddenDim][outputDim];
-    	outputBiases = new double[outputDim];
-    	
-    	int index = 0;
-    	for (int i = 0; i < inputDim; i++) {
-    		for (int j = 0; j < hiddenDim; j++) {
-    			hiddenWeights[i][j] = values[index++];
-    		}
-    	}
-    	
-    	for (int i = 0; i < hiddenDim; i++) {
-    		hiddenBiases[i] = values[index++];
-    	}
-    	for (int i = 0; i < hiddenDim; i++) {
-    		for (int j = 0; j < outputDim; j++) {
-    			outputWeights[i][j] = values[index++];
-    		}
-    	}
-    	
-    	for (int i = 0; i < outputDim; i++) {
-    		outputBiases[i] = values[index++];
-    	}  	
-    }
-     
-    private void initializeParameters() {
-			hiddenWeights = new double[inputDim][hiddenDim];
-			hiddenBiases = new double[hiddenDim];
-			outputWeights = new double[hiddenDim][outputDim];
-			outputBiases = new double[outputDim];
-			
-			// Initialize weights with random values in the specified range
-			for (int i = 0; i < inputDim; i++) {
-				for (int j = 0; j < hiddenDim; j++) {
-					hiddenWeights[i][j] = ((Math.random() * 2) - 1) * INITIALDIVERSITY;
-				}
-			}
-			
-			// Initialize hidden biases with random values in the specified range
-			for (int i = 0; i < hiddenDim; i++) {
-				hiddenBiases[i] = ((Math.random() * 2) - 1) * INITIALDIVERSITY;
-				for (int j = 0; j < outputDim; j++) {
-					outputWeights[i][j] = ((Math.random() * 2) - 1) * INITIALDIVERSITY;
-				}
-			}
-			
-			// Initialize output biases with random values in the specified range
-			for (int i = 0; i < outputDim; i++) {
-				outputBiases[i] = ((Math.random() * 2) - 1) * INITIALDIVERSITY;
-			}
-}
-       
-    public double[] forward(int[] values) {
-    	double[] inputValues = normalize(values);
+	    hiddenWeights = new double[inputDim][hiddenDim];
+	    hiddenBiases = new double[hiddenDim];
+	    outputWeights = new double[hiddenDim][outputDim];
+	    outputBiases = new double[outputDim];
+	    
+	    int index = 0;
+	    for (int i = 0; i < inputDim; i++) {
+	        for (int j = 0; j < hiddenDim; j++) {
+	            hiddenWeights[i][j] = values[index++];
+	        }
+	    }
+	    for (int i = 0; i < hiddenDim; i++) {
+	        hiddenBiases[i] = values[index++];
+	    }
+	    for (int i = 0; i < hiddenDim; i++) {
+	        for (int j = 0; j < outputDim; j++) {
+	            outputWeights[i][j] = values[index++];
+	        }
+	    }
+	    for (int i = 0; i < outputDim; i++) {
+	        outputBiases[i] = values[index++];
+	    }  	
+	}
 
-    	double[] hiddenLayer = new double[hiddenDim];
-	
-    	for(int i = 0; i < hiddenDim; i++) {
-    		for(int j = 0; j < inputDim; j++) {
-    			hiddenLayer[i] += hiddenWeights[j][i] * inputValues[j] ;
-    		}
-    		hiddenLayer[i] = sigmoid(hiddenLayer[i] + hiddenBiases[i]);
-    	}
-    	
-    	double[] output = new double[Commons.BREAKOUT_NUM_ACTIONS];
-    	for(int i = 0; i < outputDim; i++) {
-            for(int j = 0; j < hiddenDim; j++) {
-                output[i] += outputWeights[j][i] * hiddenLayer[j]; 
+    private void initializeParameters() {
+        hiddenWeights = new double[inputDim][hiddenDim];
+        hiddenBiases = new double[hiddenDim];
+        for (int i = 0; i < inputDim; i++) {
+            for (int j = 0; j < hiddenDim; j++) {
+                hiddenWeights[i][j] = ((Math.random() * 2) - 1) * INITIALDIVERSITY;
             }
-    		output[i] = sigmoid(output[i] + outputBiases[i]);
-    	}
-    	
-    	
-    	
-    	return output;
+        }
+        for (int i = 0; i < hiddenDim; i++) {
+            hiddenBiases[i] = ((Math.random() * 2) - 1) * INITIALDIVERSITY;
+        }
+        
+        outputWeights = new double[hiddenDim][outputDim];
+        outputBiases = new double[outputDim];
+        for (int i = 0; i < hiddenDim; i++) {
+            for (int j = 0; j < outputDim; j++) {
+                outputWeights[i][j] = ((Math.random() * 2) - 1) * INITIALDIVERSITY;
+            }
+        }
+        for (int i = 0; i < outputDim; i++) {
+            outputBiases[i] = ((Math.random() * 2) - 1) * INITIALDIVERSITY;
+        }
     }
+
+	    public int getSeed() {
+	    	return seed;
+	    }
+
+			//initializeNetwork(stringToArray(a1799999));
+	    public double[] forward(int[] values) {
+	        double[] inputValues = normalize(values);
+
+	        // First hidden layer
+	        double[] hiddenLayer = new double[hiddenDim];
+	        for (int i = 0; i < hiddenDim; i++) {
+	            for (int j = 0; j < inputDim; j++) {
+	                hiddenLayer[i] += hiddenWeights[j][i] * inputValues[j];
+	            }
+	            hiddenLayer[i] = sigmoid(hiddenLayer[i] + hiddenBiases[i]);
+	        }
+
+	        // Output layer (now directly follows the first hidden layer)
+	        double[] output = new double[outputDim];
+	        for (int i = 0; i < outputDim; i++) {
+	            for (int j = 0; j < hiddenDim; j++) {
+	                output[i] += outputWeights[j][i] * hiddenLayer[j];
+	            }
+	            output[i] = sigmoid(output[i] + outputBiases[i]);
+	        }
+
+	        return output;
+	    }
+
     
     @Override
 	public int nextMove(int[] inputValues) {
@@ -124,10 +120,6 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
 			return 1;
 		return 2;
 	}
-    
-    private double tanh(double x) {
-        return (Math.exp(x) - Math.exp(-x)) / (Math.exp(x) + Math.exp(-x));
-    }
 
     private double sigmoid(double x) {
     	return 1/(1+Math.exp(-x));
@@ -157,83 +149,98 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
     }
         
     public double getFitness() {
-    	BreakoutBoard bb = new BreakoutBoard(this, false, Commons.SEED);
+    	BreakoutBoard bb = new BreakoutBoard(this, false, seed);
     	bb.runSimulation();
     	return bb.getFitness();
     }
     
     public double[] getNeuralNetwork() {
-    	
-        int size = inputDim * hiddenDim + hiddenDim + hiddenDim * outputDim + outputDim;
+        int size = (inputDim * hiddenDim) + hiddenDim + // Weights and biases for the hidden layer
+                   (hiddenDim * outputDim) + outputDim; // Weights and biases for the output layer
         double[] networkParams = new double[size];
-        
+
         int index = 0;
-        
+        // Hidden layer weights
         for (int i = 0; i < inputDim; i++) {
             for (int j = 0; j < hiddenDim; j++) {
                 networkParams[index++] = hiddenWeights[i][j];
             }
         }
-        
+        // Hidden layer biases
         for (int i = 0; i < hiddenDim; i++) {
             networkParams[index++] = hiddenBiases[i];
         }
-        
+
+        // Output layer weights
         for (int i = 0; i < hiddenDim; i++) {
             for (int j = 0; j < outputDim; j++) {
                 networkParams[index++] = outputWeights[i][j];
             }
         }
-        
+        // Output layer biases
         for (int i = 0; i < outputDim; i++) {
-        	networkParams[index++] = outputBiases[i];
-    	}
-        
+            networkParams[index++] = outputBiases[i];
+        }
         
         return networkParams;
     }
+
   
 	 
 	@Override
     public String toString() {
-    		String result = "----------------\n";
-    		result+="Ftn: " + getFitness() + "\n";
-            String acc = "";
+    		String result = "";
+           
+    		double acc = 0;
+    		double max = -10000;
+    		double min =  10000;
+    		
             for (int input = 0; input < inputDim; input++) {
                 for (int i = 0; i < hiddenDim; i++) {
-                    acc += hiddenWeights[input][i] + "  ";
+                	max = hiddenWeights[input][i] > max ? hiddenWeights[input][i] : max;
+                	min = hiddenWeights[input][i] < min ? hiddenWeights[input][i] : min;
+                    acc += hiddenWeights[input][i];
                 }
             } 
-            result += "hiddenWeights: " + acc +  "\n"; 
-            acc = "";
-            for (int i = 0; i < hiddenDim; i++) {
-            	acc += hiddenBiases[i] + "  ";
-            }
             
-            result += "hiddenBiases: " + acc +  "\n"; 
-            acc = "";
+            for (int i = 0; i < hiddenDim; i++) {
+            	acc += hiddenBiases[i];
+            	max = hiddenBiases[i] > max ? hiddenBiases[i] : max;
+            	min = hiddenBiases[i] < min ? hiddenBiases[i] : min;
+            }
             
             for (int hiddenw = 0; hiddenw < hiddenDim; hiddenw++) {
                 for (int i = 0; i < outputDim; i++) {
-                    acc += outputWeights[hiddenw][i] + "  ";
+                	acc += outputWeights[hiddenw][i];
+                	max = outputWeights[hiddenw][i] > max ? outputWeights[hiddenw][i] : max;
+                	min = outputWeights[hiddenw][i] < min ? outputWeights[hiddenw][i] : min;
                 }
             }
             
-            result += "outputWeights: " + acc +  "\n"; 
-            acc = "";
-            
             for (int i = 0; i < outputDim; i++) {
-            	acc += outputBiases[i] +  "  ";
+            	acc += outputBiases[i];
+            	max = outputBiases[i] > max ? outputBiases[i] : max;
+            	min = outputBiases[i] < min ? outputBiases[i] : min;
             }
             
-            result += "outputBiases: " + acc +  "\n"; 
+            acc /= Commons.BREAKOUT_NETWORK_SIZE;
             
+            result = getFitness() + " | (" + acc + ") | (" + max + ") | (" + min + ")";
             return result;
     }
 
 	@Override
 	public int compareTo(BreakoutNeuralNetwork o) {
 		return Double.compare(o.getFitness(), getFitness());
+	}
+	
+	public double[] stringToArray(String a) {
+		String[] b = a.split("  ");
+		double[] values = new double[b.length];
+		for(int i = 0; i < b.length; i++) {
+			values[i] = Double.valueOf(b[i]);
+		}
+		return values;
 	}
 
 

@@ -1,0 +1,84 @@
+package breakout;
+
+import java.util.Random;
+
+import org.ietf.jgss.Oid;
+
+import utils.Commons;
+
+public class GroupOfGA implements Comparable<GroupOfGA>{
+
+	private double MUTATION_RATE = Commons.MUTATION_RATE;
+	private double MUTATIONMAGNITUDE = Commons.MUTATIONMAGNITUDE;
+	private double MUTATION_CHANGE_PERCENTAGE = Commons.MUTATION_CHANGE_PERCENTAGE;
+	private double SELECTION_PERCENTAGE = Commons.SELECTION_PERCENTAGE;
+	private double INITIALDIVERSITY = Commons.INITIALDIVERSITY;
+	private double average = 0;
+	
+	
+	int n = Commons.N_SEEDS;
+	
+	Random r = new Random(Commons.INIITIAL_SEED);
+	
+	GeneticAlgorithm[] gaList = new GeneticAlgorithm[n];
+	
+	public GroupOfGA(double initialDiversity, double mutationRate, double mutationChangePercentage, double mutationMagnitude, double selectionPercentage) {
+		this.MUTATION_CHANGE_PERCENTAGE = mutationChangePercentage != 0 ? mutationChangePercentage : Commons.MUTATION_CHANGE_PERCENTAGE;
+		this.MUTATION_RATE = mutationRate != 0 ? mutationRate : Commons.MUTATION_RATE;
+		this.MUTATIONMAGNITUDE = mutationMagnitude != 0 ? mutationMagnitude : Commons.MUTATIONMAGNITUDE;
+		this.SELECTION_PERCENTAGE = selectionPercentage != 0 ? selectionPercentage : Commons.SELECTION_PERCENTAGE;
+    	this.INITIALDIVERSITY = initialDiversity != 0 ? initialDiversity : Commons.INITIALDIVERSITY;
+		initializeGeneticAlgoirthms();
+	}
+
+	public double getMUTATION_RATE() {
+		return MUTATION_RATE;
+	}
+
+	public double getMUTATIONMAGNITUDE() {
+		return MUTATIONMAGNITUDE;
+	}
+
+	public double getSELECTION_PERCENTAGE() {
+		return SELECTION_PERCENTAGE;
+	}
+
+	public double getINITIALDIVERSITY() {
+		return INITIALDIVERSITY;
+	}
+
+	public double getMUTATIONCHANGEPERCENTAGE() {
+		return MUTATION_CHANGE_PERCENTAGE;
+	}
+	
+	private void initializeGeneticAlgoirthms() {
+		// TODO Auto-generated method stub
+		for(int i = 0; i < gaList.length; i++) {
+			gaList[i] = new GeneticAlgorithm(r.nextInt(1111), INITIALDIVERSITY, MUTATION_RATE, MUTATION_CHANGE_PERCENTAGE, MUTATIONMAGNITUDE, SELECTION_PERCENTAGE);
+		}
+	}
+
+	public double getResult() {
+		double sum = 0;
+		for(int i = 0; i < gaList.length; i++) {
+			sum += gaList[i].getChampion().getFitness();
+		}
+		average = sum/n;
+		return average;
+	}
+
+	@Override
+	public String toString() {
+		return "GroupOfGA (" + average + ") [\n INITIALDIVERSITY=" + INITIALDIVERSITY + "\n MUTATION_RATE=" + MUTATION_RATE + "\n MUTATIONCHANGEPERCENTAGE=" + MUTATION_CHANGE_PERCENTAGE + "\n MUTATIONMAGNITUDE=" + MUTATIONMAGNITUDE
+				+ "\n SELECTION_PERCENTAGE=" + SELECTION_PERCENTAGE + "\n]";
+	}
+
+	@Override
+	public int compareTo(GroupOfGA o) {
+		return Double.compare(getResult(), o.getResult());
+	}
+
+	
+	
+	
+}
