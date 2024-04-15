@@ -197,30 +197,30 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
     		
             for (int input = 0; input < inputDim; input++) {
                 for (int i = 0; i < hiddenDim; i++) {
-                	max = hiddenWeights[input][i] > max ? hiddenWeights[input][i] : max;
-                	min = hiddenWeights[input][i] < min ? hiddenWeights[input][i] : min;
+                	max = Math.max(hiddenWeights[input][i], max);
+                	min = Math.min(hiddenWeights[input][i], min);
                     acc += hiddenWeights[input][i];
                 }
             } 
             
             for (int i = 0; i < hiddenDim; i++) {
             	acc += hiddenBiases[i];
-            	max = hiddenBiases[i] > max ? hiddenBiases[i] : max;
-            	min = hiddenBiases[i] < min ? hiddenBiases[i] : min;
+            	max = Math.max(hiddenBiases[i], max);
+            	min = Math.min(hiddenBiases[i], min);
             }
             
             for (int hiddenw = 0; hiddenw < hiddenDim; hiddenw++) {
                 for (int i = 0; i < outputDim; i++) {
                 	acc += outputWeights[hiddenw][i];
-                	max = outputWeights[hiddenw][i] > max ? outputWeights[hiddenw][i] : max;
-                	min = outputWeights[hiddenw][i] < min ? outputWeights[hiddenw][i] : min;
+                	max = Math.max(outputWeights[hiddenw][i], max);
+                	min = Math.min(outputWeights[hiddenw][i], min);
                 }
             }
             
             for (int i = 0; i < outputDim; i++) {
             	acc += outputBiases[i];
-            	max = outputBiases[i] > max ? outputBiases[i] : max;
-            	min = outputBiases[i] < min ? outputBiases[i] : min;
+            	max = Math.max(outputBiases[i], max);
+            	min = Math.min(outputBiases[i], min);
             }
             
             acc /= Commons.BREAKOUT_NETWORK_SIZE;
@@ -238,7 +238,7 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
 		String[] b = a.split("  ");
 		double[] values = new double[b.length];
 		for(int i = 0; i < b.length; i++) {
-			values[i] = Double.valueOf(b[i]);
+			values[i] = Double.parseDouble(b[i]);
 		}
 		return values;
 	}

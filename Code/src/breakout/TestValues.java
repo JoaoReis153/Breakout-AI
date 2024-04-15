@@ -1,10 +1,8 @@
 package breakout;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Random;
-
 import utils.Commons;
+
+import java.util.Arrays;
 
 public class TestValues {
 
@@ -32,7 +30,7 @@ public class TestValues {
 			double INITIALDIVERSITY_range =  ((2 * Math.random()) - 1) * 1;
 			double MUTATION_RATE_range = ((2 * Math.random()) - 1) * 0.1;
 			double MUTATIONCHANGEPERCENTAGE_range = ((2 * Math.random()) - 1) * 0.1;
-			double MUTATIONMAGNITUDE_range = ((2 * Math.random()) - 1) * 0.2;
+			double MUTATIONMAGNITUDE_range = ((2 * Math.random()) - 1) * 1;
 			double SELECTION_PERCENTAGE_range = ((2 * Math.random()) - 1) *  0.1;
 			
 			
@@ -46,10 +44,10 @@ public class TestValues {
 			if(best.getResult() > 0) {				
 				System.out.println("yuppi!");
 				INITIALDIVERSITY = Math.abs(best.getINITIALDIVERSITY() + INITIALDIVERSITY_range);
-				MUTATION_RATE =  Math.min(Math.abs(best.getMUTATION_RATE() + MUTATION_RATE_range), .4) ;
-				MUTATIONCHANGEPERCENTAGE = Math.min(best.getMUTATIONCHANGEPERCENTAGE() + MUTATIONCHANGEPERCENTAGE_range, 1);
-				MUTATIONMAGNITUDE = Math.abs(best.getMUTATIONMAGNITUDE() + MUTATIONMAGNITUDE_range);
-				SELECTION_PERCENTAGE = Math.min(Math.max(Math.abs(best.getSELECTION_PERCENTAGE() + SELECTION_PERCENTAGE_range), .1), 1);
+				MUTATION_RATE =  Math.min(Math.abs(best.getMUTATION_RATE() + MUTATION_RATE_range), .6) ;
+				MUTATIONCHANGEPERCENTAGE = Math.min(Math.max(best.getMUTATIONCHANGEPERCENTAGE() + MUTATIONCHANGEPERCENTAGE_range, .2), 1);
+				MUTATIONMAGNITUDE = Math.max(Math.abs(best.getMUTATIONMAGNITUDE() + MUTATIONMAGNITUDE_range), 0.1);
+				SELECTION_PERCENTAGE = Math.min(Math.max(Math.abs(best.getSELECTION_PERCENTAGE() + SELECTION_PERCENTAGE_range), .05), 1);
 				
 			}
 

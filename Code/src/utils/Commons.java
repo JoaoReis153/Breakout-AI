@@ -10,7 +10,7 @@ public interface Commons {
 	public static final int INIT_PADDLE_Y = 360;
 	public static final int INIT_BALL_X = 230;
 	public static final int INIT_BALL_Y = 355;    
-	public static final int PERIOD = 4;
+	public static final int PERIOD = 2;
     
 	public static final int BREAKOUT_STATE_SIZE = 7;
 	public static final int BREAKOUT_HIDDEN_LAYER = 3;
@@ -28,10 +28,10 @@ public interface Commons {
 	
 	//public static final boolean MUTATEGETELITE = false;
 
-	public static final double INITIALDIVERSITY = 1;
-	public static final double MUTATION_RATE = .35;
-	public static final double MUTATION_CHANGE_PERCENTAGE = .6;
-	public static final double MUTATIONMAGNITUDE = 1.5;
+	public static final double INITIALDIVERSITY = 1.65;
+	public static final double MUTATION_RATE = .45;
+	public static final double MUTATION_CHANGE_PERCENTAGE = .7;
+	public static final double MUTATIONMAGNITUDE = 1.1;
 	public static final double SELECTION_PERCENTAGE = 0.07;
 	
 	//TESTING	 
@@ -45,16 +45,16 @@ public interface Commons {
 	public static final int N_VALUES_TO_TEST = 500; 
 	
 	public static final boolean TESTDIFFERENTSEEDS = false;
-	public static final int INIITIAL_SEED = 123;
+	public static final int INIITIAL_SEED = 12345;
 	public static final int N_SEEDS = 2;
 
 	public static final boolean DEFAULT = false;
-	public static final int SEED = 111;
+	public static final int SEED = 1111;
 	//
 	
 	
 	public static final boolean SHOWPOPULATION = false;
-	public static final boolean SHOWEVERY_TEN = false;
+	public static final boolean SHOWEVERY_50 = false;
 	public static final boolean SHOWGENERATION = true;
 	
 	public static final boolean SHOWNEWBEST = true;
