@@ -5,7 +5,12 @@ import utils.Commons;
 public class Main {
 
 	public static void main(String[] args) {
-		
+
+		if(Commons.GETBESTSEED) {
+			GestBestSeed a = new GestBestSeed(Commons.N_GETBEST);
+			new Breakout(a.getBestNN(), a.getBestNN().getSeed());
+		}
+
 		//BreakoutNeuralNetwork n = new BreakoutNeuralNetwork();
 		if(Commons.TESTDIFFERENTVALUES) {
 			System.out.println("Testing different values...\n\n");
@@ -15,7 +20,7 @@ public class Main {
 		}
  		
 		if(Commons.TESTDIFFERENTSEEDS) {
-			GroupOfGA tdiffSeeds = new GroupOfGA(0,0,0,0,0);
+			GroupOfGA tdiffSeeds = new GroupOfGA(0,0,0,0);
 			System.out.println();
 			System.out.println();
 			System.out.println("Average: ");

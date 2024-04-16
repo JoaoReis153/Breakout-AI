@@ -12,7 +12,6 @@ public class GroupOfGA implements Comparable<GroupOfGA>{
 	private double MUTATIONMAGNITUDE = Commons.MUTATIONMAGNITUDE;
 	private double MUTATION_CHANGE_PERCENTAGE = Commons.MUTATION_CHANGE_PERCENTAGE;
 	private double SELECTION_PERCENTAGE = Commons.SELECTION_PERCENTAGE;
-	private double INITIALDIVERSITY = Commons.INITIALDIVERSITY;
 	private double average = 0;
 	
 	
@@ -22,12 +21,11 @@ public class GroupOfGA implements Comparable<GroupOfGA>{
 	
 	GeneticAlgorithm[] gaList = new GeneticAlgorithm[n];
 	
-	public GroupOfGA(double initialDiversity, double mutationRate, double mutationChangePercentage, double mutationMagnitude, double selectionPercentage) {
+	public GroupOfGA(double mutationRate, double mutationChangePercentage, double mutationMagnitude, double selectionPercentage) {
 		this.MUTATION_CHANGE_PERCENTAGE = mutationChangePercentage != 0 ? mutationChangePercentage : Commons.MUTATION_CHANGE_PERCENTAGE;
 		this.MUTATION_RATE = mutationRate != 0 ? mutationRate : Commons.MUTATION_RATE;
 		this.MUTATIONMAGNITUDE = mutationMagnitude != 0 ? mutationMagnitude : Commons.MUTATIONMAGNITUDE;
 		this.SELECTION_PERCENTAGE = selectionPercentage != 0 ? selectionPercentage : Commons.SELECTION_PERCENTAGE;
-    	this.INITIALDIVERSITY = initialDiversity != 0 ? initialDiversity : Commons.INITIALDIVERSITY;
 		initializeGeneticAlgoirthms();
 	}
 
@@ -43,10 +41,6 @@ public class GroupOfGA implements Comparable<GroupOfGA>{
 		return SELECTION_PERCENTAGE;
 	}
 
-	public double getINITIALDIVERSITY() {
-		return INITIALDIVERSITY;
-	}
-
 	public double getMUTATIONCHANGEPERCENTAGE() {
 		return MUTATION_CHANGE_PERCENTAGE;
 	}
@@ -54,7 +48,7 @@ public class GroupOfGA implements Comparable<GroupOfGA>{
 	private void initializeGeneticAlgoirthms() {
 		// TODO Auto-generated method stub
 		for(int i = 0; i < gaList.length; i++) {
-			gaList[i] = new GeneticAlgorithm(r.nextInt(1111), INITIALDIVERSITY, MUTATION_RATE, MUTATION_CHANGE_PERCENTAGE, MUTATIONMAGNITUDE, SELECTION_PERCENTAGE);
+			gaList[i] = new GeneticAlgorithm(r.nextInt(1111), MUTATION_RATE, MUTATION_CHANGE_PERCENTAGE, MUTATIONMAGNITUDE, SELECTION_PERCENTAGE);
 		}
 	}
 
@@ -69,7 +63,7 @@ public class GroupOfGA implements Comparable<GroupOfGA>{
 
 	@Override
 	public String toString() {
-		return "GroupOfGA (" + average + ") [\n INITIALDIVERSITY=" + INITIALDIVERSITY + "\n MUTATION_RATE=" + MUTATION_RATE + "\n MUTATIONCHANGEPERCENTAGE=" + MUTATION_CHANGE_PERCENTAGE + "\n MUTATIONMAGNITUDE=" + MUTATIONMAGNITUDE
+		return "GroupOfGA (" + average + ") [\n MUTATION_RATE=" + MUTATION_RATE + "\n MUTATIONCHANGEPERCENTAGE=" + MUTATION_CHANGE_PERCENTAGE + "\n MUTATIONMAGNITUDE=" + MUTATIONMAGNITUDE
 				+ "\n SELECTION_PERCENTAGE=" + SELECTION_PERCENTAGE + "\n]";
 	}
 

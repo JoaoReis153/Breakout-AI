@@ -12,19 +12,16 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
     private double[] hiddenBiases;
     private double[][] outputWeights;
     private double[] outputBiases;
-     
-    private double INITIALDIVERSITY = Commons.INITIALDIVERSITY;
+
     
     private int seed = Commons.SEED; 
     
-    public BreakoutNeuralNetwork(int seed, double initialDiversity) {
-    	this.INITIALDIVERSITY = initialDiversity != 0 ? initialDiversity : Commons.INITIALDIVERSITY;
+    public BreakoutNeuralNetwork(int seed) {
     	this.seed = seed;
         initializeParameters();
     }
     
-    public BreakoutNeuralNetwork(double[] values, int seed, double initialDiversity) {
-    	this.INITIALDIVERSITY = initialDiversity != 0 ? initialDiversity : Commons.INITIALDIVERSITY;
+    public BreakoutNeuralNetwork(double[] values, int seed) {
     	this.seed = seed;
         int maxSize = Commons.BREAKOUT_NETWORK_SIZE; // Adjust this value as per new network size
         if (values.length == maxSize) {
@@ -64,22 +61,22 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
         hiddenBiases = new double[hiddenDim];
         for (int i = 0; i < inputDim; i++) {
             for (int j = 0; j < hiddenDim; j++) {
-                hiddenWeights[i][j] = ((Math.random() * 2) - 1) * INITIALDIVERSITY;
+                hiddenWeights[i][j] = ((Math.random() * 2) - 1);
             }
         }
         for (int i = 0; i < hiddenDim; i++) {
-            hiddenBiases[i] = ((Math.random() * 2) - 1) * INITIALDIVERSITY;
+            hiddenBiases[i] = ((Math.random() * 2) - 1);
         }
         
         outputWeights = new double[hiddenDim][outputDim];
         outputBiases = new double[outputDim];
         for (int i = 0; i < hiddenDim; i++) {
             for (int j = 0; j < outputDim; j++) {
-                outputWeights[i][j] = ((Math.random() * 2) - 1) * INITIALDIVERSITY;
+                outputWeights[i][j] = ((Math.random() * 2) - 1);
             }
         }
         for (int i = 0; i < outputDim; i++) {
-            outputBiases[i] = ((Math.random() * 2) - 1) * INITIALDIVERSITY;
+            outputBiases[i] = ((Math.random() * 2) - 1);
         }
     }
 
@@ -87,7 +84,6 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
 	    	return seed;
 	    }
 
-			//initializeNetwork(stringToArray(a1799999));
 	    public double[] forward(int[] values) {
 	        double[] inputValues = normalize(values);
 
@@ -151,7 +147,7 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
     public double getFitness() {
     	BreakoutBoard bb = new BreakoutBoard(this, false, seed);
     	bb.runSimulation();
-    	return bb.getFitness();
+    	return bb.getFitness() == 0 ? bb.getFitness() : 0;
     }
     
     public double[] getNeuralNetwork() {

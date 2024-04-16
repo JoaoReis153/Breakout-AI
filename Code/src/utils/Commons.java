@@ -28,7 +28,6 @@ public interface Commons {
 	
 	//public static final boolean MUTATEGETELITE = false;
 
-	public static final double INITIALDIVERSITY = 1.65;
 	public static final double MUTATION_RATE = .45;
 	public static final double MUTATION_CHANGE_PERCENTAGE = .7;
 	public static final double MUTATIONMAGNITUDE = 1.1;
@@ -36,10 +35,13 @@ public interface Commons {
 	
 	//TESTING	 
 		//Select Parent
-		public static final int K_TOURNAMENT = 10;
+		public static final int K_TOURNAMENT = 5;
 	
 	
 	//DEBUG STUFF
+
+	public static final boolean GETBESTSEED = false;
+	public static final int N_GETBEST = 100;
 
 	public static final boolean TESTDIFFERENTVALUES = true;
 	public static final int N_VALUES_TO_TEST = 500; 
@@ -49,7 +51,7 @@ public interface Commons {
 	public static final int N_SEEDS = 2;
 
 	public static final boolean DEFAULT = false;
-	public static final int SEED = 1111;
+	public static final int SEED = 131111;
 	//
 	
 	
