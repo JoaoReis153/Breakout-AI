@@ -38,7 +38,7 @@ public class TestValues {
 			double MUTATIONMAGNITUDE = 1 * Math.random();//(n/(n-i) * Math.random());//Math.abs(Commons.MUTATIONMAGNITUDE + ((2 * Math.random()) - 1) * 0.2);
 			double SELECTION_PERCENTAGE =  0.1 + 0.4 * Math.random();//Math.abs(Commons.SELECTION_PERCENTAGE + ((2 * Math.random()) - 1) * 0.1);
 			
-			if(best.getResult() > 0) {				
+			if(best.getResult() > 100000) {
 				System.out.println("yuppi!");
 				MUTATION_RATE =  Math.min(Math.abs(best.getMUTATION_RATE() + MUTATION_RATE_range), .6) ;
 				MUTATIONCHANGEPERCENTAGE = Math.min(Math.max(best.getMUTATIONCHANGEPERCENTAGE() + MUTATIONCHANGEPERCENTAGE_range, .2), 1);
@@ -47,7 +47,7 @@ public class TestValues {
 				
 			}
 
-			System.out.println("mutationRate: " +MUTATION_RATE);
+			System.out.println("mutationRate: " + MUTATION_RATE);
 			System.out.println("mutationChangePercentage: " + MUTATIONCHANGEPERCENTAGE);
 			System.out.println("mutationMagnitude: " + MUTATIONMAGNITUDE);
 			System.out.println("selectionPercentage: " + SELECTION_PERCENTAGE);

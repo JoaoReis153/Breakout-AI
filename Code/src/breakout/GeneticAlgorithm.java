@@ -58,20 +58,7 @@ public class GeneticAlgorithm {
 	        }
 	    }
 	    
-	    private void getBest(BreakoutNeuralNetwork nn) {
-    		if(nn.getFitness() > champion.getFitness()) {
-    			interval = 0;
-    			champion = new BreakoutNeuralNetwork(nn.getNeuralNetwork(), seed);
-    			if(Commons.SHOWNEWBEST)
-    				System.out.println(champion);
-    			if(Commons.PLAYNEWBEST) {
-					new Breakout(champion, seed);
-                }
-    		} else {
-    			interval++;
-    		}
-	    }
-	    
+	*
 	    private void printPopulation() {
             for (BreakoutNeuralNetwork breakoutNeuralNetwork : population)
                 System.out.print(breakoutNeuralNetwork.getFitness() + "  ");
@@ -169,8 +156,8 @@ public class GeneticAlgorithm {
 		    int crossoverPoint = (int) (Math.random() * genes1.length);
 		    
 		    for (int i = 0; i < genes1.length; i++) {
-                child1[i] = ((genes1[i] * 0.4) + (genes2[i] * 0.6)) / 2;
-                child2[i] = ((genes1[i] * 0.6) + (genes2[i] * 0.4)) / 2;
+                child1[i] = ((genes1[i] * 0.5) + (genes2[i] * 0.5)) / 2;
+                child2[i] = ((genes1[i] * 0.5) + (genes2[i] * 0.5)) / 2;
 		    	/*
 		    	child1[i] = (i < crossoverPoint) ? genes1[i] : genes2[i];
 		        child2[i] = (i < crossoverPoint) ? genes2[i] : genes1[i];

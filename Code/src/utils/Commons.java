@@ -13,7 +13,7 @@ public interface Commons {
 	public static final int PERIOD = 2;
     
 	public static final int BREAKOUT_STATE_SIZE = 7;
-	public static final int BREAKOUT_HIDDEN_LAYER = 3;
+	public static final int BREAKOUT_HIDDEN_LAYER = 6;
 	//public static final int BREAKOUT_SECOND_HIDDEN_LAYER = 5;
 	public static final int BREAKOUT_NUM_ACTIONS = 2;
 

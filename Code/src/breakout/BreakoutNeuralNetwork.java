@@ -147,7 +147,7 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
     public double getFitness() {
     	BreakoutBoard bb = new BreakoutBoard(this, false, seed);
     	bb.runSimulation();
-    	return bb.getFitness() == 0 ? bb.getFitness() : 0;
+    	return bb.getFitness();
     }
     
     public double[] getNeuralNetwork() {
