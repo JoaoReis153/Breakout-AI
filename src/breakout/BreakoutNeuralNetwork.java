@@ -13,16 +13,13 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
     private double[][] outputWeights;
     private double[] outputBiases;
 
+    private double fitness = 0.0;
     
-    private int seed = Commons.SEED; 
-    
-    public BreakoutNeuralNetwork(int seed) {
-    	this.seed = seed;
+    public BreakoutNeuralNetwork() {
         initializeParameters();
     }
     
     public BreakoutNeuralNetwork(double[] values, int seed) {
-    	this.seed = seed;
         int maxSize = Commons.BREAKOUT_NETWORK_SIZE; // Adjust this value as per new network size
         if (values.length == maxSize) {
             initializeNetwork(values);
@@ -36,8 +33,9 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
 	    hiddenBiases = new double[hiddenDim];
 	    outputWeights = new double[hiddenDim][outputDim];
 	    outputBiases = new double[outputDim];
-	    
+
 	    int index = 0;
+
 	    for (int i = 0; i < inputDim; i++) {
 	        for (int j = 0; j < hiddenDim; j++) {
 	            hiddenWeights[i][j] = values[index++];
@@ -53,7 +51,7 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
 	    }
 	    for (int i = 0; i < outputDim; i++) {
 	        outputBiases[i] = values[index++];
-	    }  	
+	    }
 	}
 
     private void initializeParameters() {
@@ -80,38 +78,35 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
         }
     }
 
-	    public int getSeed() {
-	    	return seed;
-	    }
+	public double[] forward(int[] inputValues) {
+		//double[] inputValues = normalize(inputValues);
 
-	    public double[] forward(int[] values) {
-	        double[] inputValues = normalize(values);
+		// First hidden layer
+		double[] hiddenLayer = new double[hiddenDim];
+		for (int i = 0; i < hiddenDim; i++) {
+			for (int j = 0; j < inputDim; j++) {
+				hiddenLayer[i] += hiddenWeights[j][i] * inputValues[j];
+			}
+			hiddenLayer[i] = hiddenLayer[i] + hiddenBiases[i];
+		}
 
-	        // First hidden layer
-	        double[] hiddenLayer = new double[hiddenDim];
-	        for (int i = 0; i < hiddenDim; i++) {
-	            for (int j = 0; j < inputDim; j++) {
-	                hiddenLayer[i] += hiddenWeights[j][i] * inputValues[j];
-	            }
-	            hiddenLayer[i] = sigmoid(hiddenLayer[i] + hiddenBiases[i]);
-	        }
+		// Output layer (now directly follows the first hidden layer)
+		double[] output = new double[outputDim];
+		for (int i = 0; i < outputDim; i++) {
+			for (int j = 0; j < hiddenDim; j++) {
+				output[i] += outputWeights[j][i] * hiddenLayer[j];
+			}
+			output[i] = sigmoid(output[i] + outputBiases[i]);
+		}
 
-	        // Output layer (now directly follows the first hidden layer)
-	        double[] output = new double[outputDim];
-	        for (int i = 0; i < outputDim; i++) {
-	            for (int j = 0; j < hiddenDim; j++) {
-	                output[i] += outputWeights[j][i] * hiddenLayer[j];
-	            }
-	            output[i] = sigmoid(output[i] + outputBiases[i]);
-	        }
+		return output;
+	}
 
-	        return output;
-	    }
 
     
     @Override
 	public int nextMove(int[] inputValues) {
-		double[] output = forward(inputValues);
+        double[] output = forward(inputValues);
 		if(output[0] > output[1]) 
 			return 1;
 		return 2;
@@ -120,40 +115,22 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
     private double sigmoid(double x) {
     	return 1/(1+Math.exp(-x));
     }
-  
-    private double[] normalize(int[] values) {
-    	double[] result = new double[values.length];
-    	/*
-    	double total = 0;
-    	for(double k : values) total += k;
-    	total/=values.length*NORMALIZER;
-    	for(int i = 0; i < result.length; i++) result[i] = values[i]/total;
-    	 */
-    	
-     	//0 and 1 are balls coordinates
-    	result[0] = values[0] / (double) Commons.WIDTH;
-    	result[1] = values[1] / (double) Commons.HEIGHT;
-    	//2 is its direction (-1 ou 1)
-    	result[2] = values[2] * 0.5;
-    	//3 and 4 are the paddle coordinates
-    	result[3] = values[3] / (double) Commons.WIDTH;
-    	result[4] = values[4] / (double) Commons.HEIGHT;
-    	//5 and 6 are the bricks coordinates
-    	result[5] = values[5] / (double) Commons.WIDTH;
-    	result[6] = values[6] / (double) Commons.HEIGHT;
-    	return result;
-    }
-        
+
     public double getFitness() {
+        return fitness;
+    }
+
+    public void calculateFitness(int seed) {
     	BreakoutBoard bb = new BreakoutBoard(this, false, seed);
     	bb.runSimulation();
-    	return bb.getFitness();
+    	this.fitness = bb.getFitness();
     }
-    
+
+
+
     public double[] getNeuralNetwork() {
-        int size = (inputDim * hiddenDim) + hiddenDim + // Weights and biases for the hidden layer
-                   (hiddenDim * outputDim) + outputDim; // Weights and biases for the output layer
-        double[] networkParams = new double[size];
+
+        double[] networkParams = new double[Commons.BREAKOUT_NETWORK_SIZE];
 
         int index = 0;
         // Hidden layer weights
@@ -185,8 +162,7 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
 	 
 	@Override
     public String toString() {
-    		String result = "";
-           
+
     		double acc = 0;
     		double max = -10000;
     		double min =  10000;
@@ -221,23 +197,11 @@ public class BreakoutNeuralNetwork implements GameController, Comparable<Breakou
             
             acc /= Commons.BREAKOUT_NETWORK_SIZE;
             
-            result = getFitness() + " | (" + acc + ") | (" + max + ") | (" + min + ")";
-            return result;
+            return getFitness() + " | (" + acc + ") | (" + max + ") | (" + min + ")";
     }
 
 	@Override
 	public int compareTo(BreakoutNeuralNetwork o) {
 		return Double.compare(o.getFitness(), getFitness());
 	}
-	
-	public double[] stringToArray(String a) {
-		String[] b = a.split("  ");
-		double[] values = new double[b.length];
-		for(int i = 0; i < b.length; i++) {
-			values[i] = Double.parseDouble(b[i]);
-		}
-		return values;
-	}
-
-
 }

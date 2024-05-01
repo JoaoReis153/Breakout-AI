@@ -10,7 +10,7 @@ public class GestBestSeed {
     int n;
 
     GestBestSeed(int n) {
-        GeneticAlgorithm ga = new GeneticAlgorithm(0);
+        BreakoutGeneticAlgorithm ga = new BreakoutGeneticAlgorithm(0);
         bestNN = ga.getChampion();
         this.n = n;
         gestBest();
@@ -20,13 +20,13 @@ public class GestBestSeed {
 
         for(int i = 1; i < n; i++) {
             int a = ((int) (Math.random() * 1000 * i));
-            GeneticAlgorithm ga = new GeneticAlgorithm(a);
+            BreakoutGeneticAlgorithm ga = new BreakoutGeneticAlgorithm(a);
             if(ga.getChampion().getFitness() > bestNN.getFitness()) {
                 bestSeed = a;
                 bestNN = ga.getChampion();
             }
             System.out.println("------------------");
-            System.out.println("Seed: " + ga.getChampion().getSeed());
+            System.out.println("Seed: " + ga.getSeed());
             System.out.println("Best seed: " + bestSeed);
 
         }
