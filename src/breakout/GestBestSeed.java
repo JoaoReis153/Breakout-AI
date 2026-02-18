@@ -1,7 +1,5 @@
 package breakout;
 
-import utils.Commons;
-
 public class GestBestSeed {
 
     int bestSeed = 0;

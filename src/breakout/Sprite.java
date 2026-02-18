@@ -40,12 +40,25 @@ public class Sprite {
     }
 
     Rectangle getRect() {
+        if (image == null) {
+            return new Rectangle(x, y, 0, 0);
+        }
         return new Rectangle(x, y,
                 image.getWidth(null), image.getHeight(null));
     }
 
     void getImageDimensions() {
-        imageWidth = image.getWidth(null);
-        imageHeight = image.getHeight(null);
+        if (image != null) {
+            imageWidth = image.getWidth(null);
+            imageHeight = image.getHeight(null);
+
+            if (imageWidth == -1 || imageHeight == -1) {
+                System.err.println("Warning: Image dimensions not available for " + getClass().getSimpleName());
+            }
+        } else {
+            System.err.println("Error: Image is null for " + getClass().getSimpleName());
+            imageWidth = 0;
+            imageHeight = 0;
+        }
     }
 }

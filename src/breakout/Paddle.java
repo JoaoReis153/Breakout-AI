@@ -1,6 +1,5 @@
 package breakout;
 
-import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 
 import utils.Commons;
@@ -21,9 +20,14 @@ public class Paddle extends Sprite  {
     }
     
     private void loadImage() {
-        var ii = new ImageIcon("src/resources/paddle.png");
-        image = ii.getImage();        
-    }    
+        var resource = getClass().getResource("/resources/paddle.png");
+        if (resource == null) {
+            System.err.println("Error: Could not find /resources/paddle.png in classpath");
+            return;
+        }
+        var ii = new ImageIcon(resource);
+        image = ii.getImage();
+    }
 
     void move() {
         x += dx;

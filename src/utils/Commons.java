@@ -24,7 +24,7 @@ public interface Commons {
 	
 	//GA Breakoout
 	public static final int POPULATION_SIZE = 100;
-	public static final int NUM_GENERATIONS = 100;
+	public static final int NUM_GENERATIONS = 10;
 	
 	//public static final boolean MUTATEGETELITE = false;
 
@@ -43,14 +43,14 @@ public interface Commons {
 	public static final boolean GETBESTSEED = false;
 	public static final int N_GETBEST = 100;
 
-	public static final boolean TESTDIFFERENTVALUES = true;
+	public static final boolean TESTDIFFERENTVALUES = false;
 	public static final int N_VALUES_TO_TEST = 500; 
 	
 	public static final boolean TESTDIFFERENTSEEDS = false;
 	public static final int INIITIAL_SEED = 12345;
 	public static final int N_SEEDS = 2;
 
-	public static final boolean DEFAULT = false;
+	public static final boolean DEFAULT = true;
 	public static final int SEED = 131111;
 	//
 	

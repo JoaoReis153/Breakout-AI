@@ -23,7 +23,12 @@ public class Ball extends Sprite {
     }
 
     private void loadImage() {
-        var ii = new ImageIcon("src/resources/ball.png");
+        var resource = getClass().getResource("/resources/ball.png");
+        if (resource == null) {
+            System.err.println("Error: Could not find /resources/ball.png in classpath");
+            return;
+        }
+        var ii = new ImageIcon(resource);
         image = ii.getImage();
     }
 

@@ -58,7 +58,7 @@ public class GeneticAlgorithm {
 	        }
 	    }
 	    
-	*
+
 	    private void printPopulation() {
             for (BreakoutNeuralNetwork breakoutNeuralNetwork : population)
                 System.out.print(breakoutNeuralNetwork.getFitness() + "  ");
@@ -75,7 +75,7 @@ public class GeneticAlgorithm {
 				if(Commons.SHOWGENERATION && i % 10 == 0)
 					System.out.println("Gen: " + i);
 		
-				getBest(population[0]);
+				//getBest(population[0]);
 				
 				if(Commons.BREAKIFNOTHINGININTERVAL && interval == Commons.BREAKINTERVAL) {  
 					System.out.println("Gen: " + i);

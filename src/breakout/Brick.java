@@ -20,8 +20,13 @@ public class Brick extends Sprite {
     }
     
     private void loadImage() {
-        var ii = new ImageIcon("src/resources/brick.png");
-        image = ii.getImage();        
+        var resource = getClass().getResource("/resources/brick.png");
+        if (resource == null) {
+            System.err.println("Error: Could not find /resources/brick.png in classpath");
+            return;
+        }
+        var ii = new ImageIcon(resource);
+        image = ii.getImage();
     }
 
     boolean isDestroyed() {
