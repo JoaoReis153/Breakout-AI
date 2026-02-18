@@ -1,6 +1,6 @@
 package breakout;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 public class Brick extends Sprite {
 
@@ -9,16 +9,16 @@ public class Brick extends Sprite {
     public Brick(int x, int y) {
         initBrick(x, y);
     }
-    
+
     private void initBrick(int x, int y) {
         this.x = x;
         this.y = y;
-        
+
         destroyed = false;
         loadImage();
         getImageDimensions();
     }
-    
+
     private void loadImage() {
         var resource = getClass().getResource("/resources/brick.png");
         if (resource == null) {

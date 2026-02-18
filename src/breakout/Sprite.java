@@ -1,7 +1,6 @@
 package breakout;
 
-import java.awt.Image;
-import java.awt.Rectangle;
+import java.awt.*;
 
 public class Sprite {
 
@@ -10,7 +9,7 @@ public class Sprite {
     int imageWidth;
     int imageHeight;
     Image image;
-    
+
     protected void setX(int x) {
         this.x = x;
     }

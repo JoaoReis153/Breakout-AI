@@ -1,22 +1,22 @@
 package breakout;
 
-import javax.swing.JFrame;
-
 import utils.GameController;
+
+import javax.swing.*;
 
 public class Breakout extends JFrame {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public Breakout(GameController network, int seed) {
-		add(new BreakoutBoard(network, true, seed));
-		setTitle("Breakout");
+    public Breakout(GameController network, int seed) {
+        add(new BreakoutBoard(network, true, seed));
+        setTitle("Breakout");
 
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
-		setResizable(false);
-		pack();
-		setVisible(true);
-	}
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setResizable(false);
+        pack();
+        setVisible(true);
+    }
 
 }

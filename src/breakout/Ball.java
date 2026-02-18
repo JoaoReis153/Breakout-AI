@@ -1,8 +1,8 @@
 package breakout;
 
-import javax.swing.ImageIcon;
-
 import utils.Commons;
+
+import javax.swing.*;
 
 public class Ball extends Sprite {
 

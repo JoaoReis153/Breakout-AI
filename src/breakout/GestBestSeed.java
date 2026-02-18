@@ -16,10 +16,10 @@ public class GestBestSeed {
 
     private void gestBest() {
 
-        for(int i = 1; i < n; i++) {
+        for (int i = 1; i < n; i++) {
             int a = ((int) (Math.random() * 1000 * i));
             GeneticAlgorithm ga = new GeneticAlgorithm(a);
-            if(ga.getChampion().getFitness() > bestNN.getFitness()) {
+            if (ga.getChampion().getFitness() > bestNN.getFitness()) {
                 bestSeed = a;
                 bestNN = ga.getChampion();
             }

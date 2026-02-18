@@ -1,8 +1,8 @@
-# Breakout AI 🎮🧠
+# Breakout AI 
 
 A Java-based project that explores the intersection of classic arcade gaming and Artificial Intelligence. This project implements a custom version of the game **Breakout** and trains a **Neural Network** using a **Genetic Algorithm** to play it autonomously.
 
-## 🚀 Project Overview
+## Project Overview
 
 The core objective of this project is to demonstrate how evolutionary algorithms can be used to optimize a neural network for a specific task—in this case, keeping the ball in play and breaking bricks.
 
@@ -11,7 +11,7 @@ The core objective of this project is to demonstrate how evolutionary algorithms
 -   **Neural Network**: A simple feed-forward network that perceives the game state (Ball position, Paddle position, Brick position) and decides whether to move the paddle Left or Right.
 -   **Genetic Algorithm (GA)**: The training mechanism. It evolves a population of neural networks over generations, selecting the "fittest" individuals (those who survive the longest and break the most bricks) to reproduce.
 
-## 🛠️ How to Run
+## How to Run
 
 ### Prerequisities
 -   Java Development Kit (JDK) 8 or higher.
@@ -25,6 +25,8 @@ The core objective of this project is to demonstrate how evolutionary algorithms
 
 2.  **Run the application**:
     ```bash
+    java -cp out breakout.Main
+    ```
 
 ### Run with IntelliJ IDEA
 1.  **Open the Project**:
@@ -41,7 +43,7 @@ The core objective of this project is to demonstrate how evolutionary algorithms
     -   Right-click on the file and select `Run 'Main.main()'`.
 
 
-## ⚙️ Configuration
+## Configuration
 
 You can tweak the behavior of the AI and the game by modifying the `src/utils/Commons.java` file. This file acts as a central configuration hub.
 
@@ -56,7 +58,7 @@ You can tweak the behavior of the AI and the game by modifying the `src/utils/Co
 > [!NOTE]
 > After changing any value in `Commons.java`, remember to recompile the project.
 
-## 🧠 Educational Aspects & Lessons Learned
+## Educational Aspects & Lessons Learned
 
 ### What was used?
 *   **Java Swing**: For rendering the game graphics and handling the game loop.

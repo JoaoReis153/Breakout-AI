@@ -1,24 +1,24 @@
 package breakout;
 
-import javax.swing.ImageIcon;
-
 import utils.Commons;
 
-public class Paddle extends Sprite  {
+import javax.swing.*;
 
-	private int dx;
+public class Paddle extends Sprite {
+
+    private int dx;
 
     public Paddle() {
-        initPaddle();        
+        initPaddle();
     }
-    
+
     private void initPaddle() {
         loadImage();
         getImageDimensions();
 
         resetState();
     }
-    
+
     private void loadImage() {
         var resource = getClass().getResource("/resources/paddle.png");
         if (resource == null) {
@@ -41,14 +41,14 @@ public class Paddle extends Sprite  {
 
 
     public void makeMove(int move) {
-    	if(move == BreakoutBoard.LEFT) {
-    		dx = -1;
-    	} else if(move == BreakoutBoard.RIGHT) {
-    		dx = 1;
-    	}
+        if (move == BreakoutBoard.LEFT) {
+            dx = -1;
+        } else if (move == BreakoutBoard.RIGHT) {
+            dx = 1;
+        }
     }
-    
-    
+
+
     private void resetState() {
         x = Commons.INIT_PADDLE_X;
         y = Commons.INIT_PADDLE_Y;
