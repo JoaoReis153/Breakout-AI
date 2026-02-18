@@ -132,6 +132,7 @@ public class GeneticAlgorithm {
 
         for (int i = 1; i < Commons.K_TOURNAMENT; i++) {
             BreakoutNeuralNetwork c = population[(int) (Math.random() * POPULATION_SIZE)];
+
             if (c.getFitness() > best.getFitness()) {
                 best = c;
             }
