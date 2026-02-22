@@ -65,9 +65,3 @@ You can tweak the behavior of the AI and the game by modifying the `src/utils/Co
 *   **Encapsulation & Inheritance**: Using Object-Oriented Programming (OOP) to structure the Game Board, Ball, Paddle, and Bricks.
 *   **Neural Networks**: Implemented from scratch (without external libraries) to understand the math behind layers, weights, biases, and activation functions (Sigmoid).
 *   **Genetic Algorithms**: Implemented biologically inspired operators like **Tournament Selection**, **Crossover**, and **Gaussian Mutation**.
-
-### What was learned?
-1.  **The Power of Evolution**: It's fascinating to see how random noise (random weights) can evolve into a coherent strategy. In early generations, the paddle moves erratically. By generation 50+, it tracks the ball with surprising accuracy.
-2.  **Hyperparameter Sensitivity**: The success of the AI is heavily dependent on values like `MUTATION_RATE`. If it's too high, the AI never settles on a good strategy. If it's too low, it evolves too slowly.
-3.  **State Representation**: Deciding *what* the AI sees is crucial. We simplified the input to just 7 numbers (coordinates of the ball, paddle, and target brick). Giving the AI raw pixel data would have required a much more complex network (like a CNN).
-4.  **Fitness Function Design**: Defining "success" is tricky. Initially, we just rewarded time survived, but the AI learned to just avoid the ball to keep the game going if possible (or stuck in loops). Adding points for breaking bricks (`kills`) encouraged aggressive play.
