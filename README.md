@@ -58,7 +58,7 @@ You can tweak the behavior of the AI and the game by modifying the `src/utils/Co
 > [!NOTE]
 > After changing any value in `Commons.java`, remember to recompile the project.
 
-## Educational Aspects & Lessons Learned
+## Educational Aspects
 
 ### What was used?
 *   **Java Swing**: For rendering the game graphics and handling the game loop.
